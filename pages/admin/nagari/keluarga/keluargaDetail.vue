@@ -256,12 +256,10 @@ export default {
       const id = urlParams.get("id");
 
       try {
-        const response = await fetch(
-          `https://demo-ta.my.id/api/keluargas/${id}`
-        );
+        const response = await fetch(`https://demo-ta.my.id/api/keluargas/${id}`);
         const data = await response.json();
         keluargaDetail.value = data;
-        await fetchAnggotaKeluarga(data.id);
+        await fetchAnggotaKeluarga(data.id); // Pastikan fetchAnggotaKeluarga selesai sebelum lanjut
       } catch (error) {
         console.error("Error fetching keluarga detail:", error);
       }
@@ -270,9 +268,7 @@ export default {
     // Fetch Anggota Keluarga
     const fetchAnggotaKeluarga = async (keluargaId) => {
       try {
-        const response = await fetch(
-          `https://demo-ta.my.id/api/anggota_keluargas`
-        );
+        const response = await fetch(`https://demo-ta.my.id/api/anggota_keluargas`);
         const data = await response.json();
         anggotaKeluarga.value = data.filter(
           (anggota) => anggota.keluarga_id === keluargaId
@@ -351,6 +347,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .custom-bg-main {
