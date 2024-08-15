@@ -255,11 +255,12 @@ export default {
 
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/keluargas/${id}`
+          `http://laravel-api.test/api/keluargas/${id}`
         );
         const data = await response.json();
         keluargaDetail.value = data;
         await fetchAnggotaKeluarga(data.id);
+        groupKepalaKeluarga(); // Panggil metode pengelompokan setelah data diambil
       } catch (error) {
         console.error("Error fetching keluarga detail:", error);
       }
@@ -269,20 +270,23 @@ export default {
     const fetchAnggotaKeluarga = async (keluargaId) => {
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/anggota_keluargas`
+          `http://laravel-api.test/api/anggota_keluargas`
         );
         const data = await response.json();
         anggotaKeluarga.value = data.filter(
           (anggota) => anggota.keluarga_id === keluargaId
         );
+        groupKepalaKeluarga(); // Pastikan ini dipanggil setelah data diambil
       } catch (error) {
         console.error("Error fetching anggota keluarga:", error);
         console.log("Data fetched:", anggotaKeluarga.value);
       }
     };
 
-    // Group anggota keluarga by kepala_keluarga_id
-    const groupedByKepalaKeluarga = computed(() => {
+    // Metode untuk mengelompokkan anggota keluarga by kepala_keluarga_id
+    const groupedByKepalaKeluarga = ref([]);
+
+    const groupKepalaKeluarga = () => {
       const groups = [];
       const kepalaKeluargas = anggotaKeluarga.value.filter(
         (anggota) => anggota.hubungan_keluarga === "Kepala Keluarga"
@@ -297,10 +301,12 @@ export default {
           kepalaKeluarga,
           anggota: anggotaGroup,
         });
+        console.log("Grouped by Kepala Keluarga:", groupedByKepalaKeluarga.value);
+
       });
 
-      return groups;
-    });
+      groupedByKepalaKeluarga.value = groups;
+    };
 
     // Open modal and show details of the selected group
     const openDetailModal = (kepalaKeluargaId) => {
@@ -327,10 +333,9 @@ export default {
     });
 
     onMounted(async () => {
-   await fetchKeluargaDetail();
-   console.log("Keluarga Detail:", keluargaDetail.value);
-});
-
+      await fetchKeluargaDetail();
+      console.log("Keluarga Detail:", keluargaDetail.value);
+    });
 
     return {
       keluargaDetail,
@@ -341,7 +346,7 @@ export default {
       openDetailModal,
       closeDetailModal,
       notification,
-      jumlahKepalaKeluarga,  // Include this in the return
+      jumlahKepalaKeluarga,
     };
   },
 };
