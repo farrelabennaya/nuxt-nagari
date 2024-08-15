@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { initFlowbite } from "flowbite";
 import { ref, onMounted, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 const userDropdownOpen = ref(false);
 const nagariDropdownOpen = ref(false);
 const pendudukDropdownOpen = ref(false);
+const sidebarOpen = ref(false);
 const activeMenu = ref("");
 const route = useRoute();
-const router = useRouter();
 
 const toggleUserDropdown = () => {
   userDropdownOpen.value = !userDropdownOpen.value;
@@ -24,14 +23,15 @@ const togglePendudukDropdown = () => {
   localStorage.setItem("pendudukDropdownOpen", pendudukDropdownOpen.value);
 };
 
+const toggleSidebar = () => {
+  sidebarOpen.value = !sidebarOpen.value;
+};
+
 const updateActiveMenu = () => {
   activeMenu.value = route.path;
 };
 
 onMounted(() => {
-  useFlowbite(() => {
-    initFlowbite();
-  });
   const userDropdownState = localStorage.getItem("userDropdownOpen");
   if (userDropdownState !== null) {
     userDropdownOpen.value = userDropdownState === "true";
@@ -45,29 +45,46 @@ onMounted(() => {
   if (pendudukDropdownState !== null) {
     pendudukDropdownOpen.value = pendudukDropdownState === "true";
   }
-
-  
-
   updateActiveMenu();
 
-  // Menghapus status dropdown dari localStorage saat halaman di-refresh
-  window.addEventListener("beforeunload", () => {
-    localStorage.removeItem("userDropdownOpen");
-    localStorage.removeItem("nagariDropdownOpen");
-    localStorage.removeItem("pendudukDropdownOpen");
-  });
+// Menghapus status dropdown dari localStorage saat halaman di-refresh
+window.addEventListener("beforeunload", () => {
+  localStorage.removeItem("userDropdownOpen");
+  localStorage.removeItem("nagariDropdownOpen");
+  localStorage.removeItem("pendudukDropdownOpen");
+});
 });
 
 watch(route, () => {
   updateActiveMenu();
-  // Tidak menghapus status dropdown dari localStorage saat berpindah halaman
 });
 </script>
 
 <template>
+  <!-- Button to toggle sidebar on mobile -->
+  <button
+    class="fixed top-4 left-4 z-50 sm:hidden"
+    @click="toggleSidebar"
+    aria-label="Toggle Sidebar"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-8 w-8 text-gray-500"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+    </svg>
+  </button>
+
   <aside
     id="logo-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    :class="[
+      'fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700',
+      sidebarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0',
+    ]"
     aria-label="Sidebar"
   >
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
@@ -77,6 +94,7 @@ watch(route, () => {
             to="/admin"
             class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group"
             :class="{ 'bg-gray-200': activeMenu === '/admin' }"
+            @click="sidebarOpen = false"
           >
             <svg
               class="w-6 h-6 text-gray-500 group-hover:text-gray-900 transition duration-75"
@@ -91,6 +109,7 @@ watch(route, () => {
           </NuxtLink>
         </li>
 
+        <!-- Dropdown User -->
         <li>
           <button
             type="button"
@@ -110,7 +129,6 @@ watch(route, () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-
             <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap"
               >User</span
             >
@@ -140,6 +158,7 @@ watch(route, () => {
                 to="/admin/user/data"
                 class="flex items-center w-full p-2 text-gray-900 font-normal transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 :class="{ 'bg-gray-200': activeMenu === '/admin/user/data' }"
+                @click="sidebarOpen = false"
                 >Data User</NuxtLink
               >
             </li>
@@ -149,12 +168,14 @@ watch(route, () => {
                 to="/admin/petugas/data"
                 class="flex items-center w-full p-2 text-gray-900 font-normal transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 :class="{ 'bg-gray-200': activeMenu === '/admin/petugas/data' }"
+                @click="sidebarOpen = false"
                 >Data Petugas</NuxtLink
               >
             </li>
           </ul>
         </li>
 
+        <!-- Dropdown Nagari -->
         <li>
           <button
             type="button"
@@ -211,6 +232,7 @@ watch(route, () => {
                 :class="{
                   'bg-gray-200': activeMenu === '/admin/nagari/jorong',
                 }"
+                @click="sidebarOpen = false"
                 >Jorong</NuxtLink
               >
             </li>
@@ -221,6 +243,7 @@ watch(route, () => {
                 :class="{
                   'bg-gray-200': activeMenu === '/admin/nagari/alamat',
                 }"
+                @click="sidebarOpen = false"
                 >Alamat</NuxtLink
               >
             </li>
@@ -229,32 +252,14 @@ watch(route, () => {
                 to="/admin/nagari/rumah"
                 class="flex items-center w-full p-2 text-gray-900 font-normal transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 :class="{ 'bg-gray-200': activeMenu === '/admin/nagari/rumah' }"
+                @click="sidebarOpen = false"
                 >Rumah</NuxtLink
               >
             </li>
-            <!-- <li>
-              <NuxtLink
-                to="/admin/nagari/keluarga"
-                class="flex items-center w-full p-2 text-gray-900 font-normal transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                :class="{
-                  'bg-gray-200': activeMenu === '/admin/nagari/keluarga',
-                }"
-                >Keluarga</NuxtLink
-              >
-            </li> -->
-            <!-- <li>
-              <NuxtLink
-                to="/admin/nagari/anggotaKeluarga"
-                class="flex items-center w-full p-2 text-gray-900 font-normal transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                :class="{
-                  'bg-gray-200': activeMenu === '/admin/nagari/anggotaKeluarga',
-                }"
-                >Anggota Keluarga</NuxtLink
-              >
-            </li> -->
           </ul>
         </li>
 
+        <!-- Dropdown Penduduk -->
         <li>
           <button
             type="button"
@@ -311,6 +316,7 @@ watch(route, () => {
                 :class="{
                   'bg-gray-200': activeMenu === '/admin/nagari/keluarga',
                 }"
+                @click="sidebarOpen = false"
                 >Keluarga</NuxtLink
               >
             </li>
@@ -321,6 +327,7 @@ watch(route, () => {
                 :class="{
                   'bg-gray-200': activeMenu === '/admin/nagari/anggotaKeluarga',
                 }"
+                @click="sidebarOpen = false"
                 >Data Penduduk</NuxtLink
               >
             </li>
@@ -335,6 +342,7 @@ watch(route, () => {
             :class="{
               'bg-gray-200': activeMenu === '/admin/qr/create',
             }"
+            @click="sidebarOpen = false"
           >
             <svg
               class="w-6 h-6 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"
@@ -359,6 +367,7 @@ watch(route, () => {
             :class="{
               'bg-gray-200': activeMenu === '/admin/qr/scan',
             }"
+            @click="sidebarOpen = false"
           >
             <svg
               class="w-6 h-6 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"
@@ -383,6 +392,24 @@ watch(route, () => {
 </template>
 
 <style scoped>
+/* Styling untuk tampilan mobile dan desktop */
+@media (max-width: 640px) {
+  #logo-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  #logo-sidebar.translate-x-0 {
+    transform: translateX(0);
+  }
+}
+
+/* Styling untuk tampilan desktop agar sidebar selalu terlihat */
+@media (min-width: 641px) {
+  #logo-sidebar {
+    transform: translateX(0);
+  }
+}
+
 .bg-gray-200 {
   background-color: #e5e7eb !important;
 }
