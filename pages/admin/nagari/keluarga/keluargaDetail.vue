@@ -326,9 +326,11 @@ export default {
       ).length;
     });
 
-    onMounted(() => {
-      fetchKeluargaDetail();
-    });
+    onMounted(async () => {
+   await fetchKeluargaDetail();
+   console.log("Keluarga Detail:", keluargaDetail.value);
+});
+
 
     return {
       keluargaDetail,
