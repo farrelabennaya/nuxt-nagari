@@ -158,72 +158,74 @@
         </main>
 
         <!-- Modal for Detail Keluarga -->
-        <div
-          v-if="isModalVisible"
-          class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      
+  <!-- Modal for Detail Keluarga -->
+  <div
+    v-if="isModalVisible"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+  >
+    <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-4xl">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">
+        Detail Anggota Keluarga
+      </h2>
+      <div class="overflow-auto">
+        <table class="w-full text-left text-sm text-gray-500">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" class="px-4 py-3">Nama</th>
+              <th scope="col" class="px-4 py-3">NIK</th>
+              <th scope="col" class="px-4 py-3">Tempat Lahir</th>
+              <th scope="col" class="px-4 py-3">Tanggal Lahir</th>
+              <th scope="col" class="px-4 py-3">Agama</th>
+              <th scope="col" class="px-4 py-3">Jenis Kelamin</th>
+              <th scope="col" class="px-4 py-3">Pendidikan</th>
+              <th scope="col" class="px-4 py-3">Pekerjaan</th>
+              <th scope="col" class="px-4 py-3">Status Perkawinan</th>
+              <th scope="col" class="px-4 py-3">Hubungan Keluarga</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="anggota in selectedGroup.anggota"
+              :key="anggota.id"
+              class="bg-white border-b hover:bg-gray-50"
+            >
+              <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                {{ anggota.nama }}
+              </td>
+              <td class="px-4 py-3">{{ anggota.nik }}</td>
+              <td class="px-4 py-3">{{ anggota.tempat_lahir }}</td>
+              <td class="px-4 py-3">{{ anggota.tanggal_lahir }}</td>
+              <td class="px-4 py-3">{{ anggota.agama }}</td>
+              <td class="px-4 py-3">{{ anggota.jenis_kelamin }}</td>
+              <td class="px-4 py-3">{{ anggota.pendidikan }}</td>
+              <td class="px-4 py-3">{{ anggota.pekerjaan }}</td>
+              <td class="px-4 py-3">{{ anggota.status_perkawinan }}</td>
+              <td class="px-4 py-3">{{ anggota.hubungan_keluarga }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="flex justify-end mt-4">
+        <button
+          @click="closeDetailModal"
+          class="bg-red-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
         >
-          <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-4xl">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">
-              Detail Anggota Keluarga
-            </h2>
-            <div class="overflow-auto">
-              <table class="w-full text-left text-sm text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                  <tr>
-                    <th scope="col" class="px-4 py-3">Nama</th>
-                    <th scope="col" class="px-4 py-3">NIK</th>
-                    <th scope="col" class="px-4 py-3">Tempat Lahir</th>
-                    <th scope="col" class="px-4 py-3">Tanggal Lahir</th>
-                    <th scope="col" class="px-4 py-3">Agama</th>
-                    <th scope="col" class="px-4 py-3">Jenis Kelamin</th>
-                    <th scope="col" class="px-4 py-3">Pendidikan</th>
-                    <th scope="col" class="px-4 py-3">Pekerjaan</th>
-                    <th scope="col" class="px-4 py-3">Status Perkawinan</th>
-                    <th scope="col" class="px-4 py-3">Hubungan Keluarga</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="anggota in selectedGroup.anggota"
-                    :key="anggota.id"
-                    class="bg-white border-b hover:bg-gray-50"
-                  >
-                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                      {{ anggota.nama }}
-                    </td>
-                    <td class="px-4 py-3">{{ anggota.nik }}</td>
-                    <td class="px-6 py-4">{{ anggota.tempat_lahir }}</td>
-                    <td class="px-6 py-4">{{ anggota.tanggal_lahir }}</td>
-                    <td class="px-6 py-4">{{ anggota.agama }}</td>
-                    <td class="px-6 py-4">{{ anggota.jenis_kelamin }}</td>
-                    <td class="px-6 py-4">{{ anggota.pendidikan }}</td>
-                    <td class="px-6 py-4">{{ anggota.pekerjaan }}</td>
-                    <td class="px-6 py-4">{{ anggota.status_perkawinan }}</td>
-                    <td class="px-6 py-4">{{ anggota.hubungan_keluarga }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="flex justify-end mt-4">
-              <button
-                @click="closeDetailModal"
-                class="bg-red-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
-              >
-                Tutup
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div
-          v-if="notification.show"
-          class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg"
-        >
-          {{ notification.message }}
-        </div>
+          Tutup
+        </button>
       </div>
     </div>
   </div>
+  </div>
+  </div>
+
+  <div
+    v-if="notification.show"
+    class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg"
+  >
+    {{ notification.message }}
+  </div>
+</div>
 </template>
 
 <script>
@@ -260,7 +262,6 @@ export default {
         const data = await response.json();
         keluargaDetail.value = data;
         await fetchAnggotaKeluarga(data.id);
-        groupKepalaKeluarga(); // Panggil metode pengelompokan setelah data diambil
       } catch (error) {
         console.error("Error fetching keluarga detail:", error);
       }
@@ -276,7 +277,7 @@ export default {
         anggotaKeluarga.value = data.filter(
           (anggota) => anggota.keluarga_id === keluargaId
         );
-        groupKepalaKeluarga(); // Pastikan ini dipanggil setelah data diambil
+        groupKepalaKeluarga(); // Panggil metode pengelompokan setelah data diambil
       } catch (error) {
         console.error("Error fetching anggota keluarga:", error);
         console.log("Data fetched:", anggotaKeluarga.value);
@@ -301,11 +302,10 @@ export default {
           kepalaKeluarga,
           anggota: anggotaGroup,
         });
-        console.log("Grouped by Kepala Keluarga:", groupedByKepalaKeluarga.value);
-
       });
 
       groupedByKepalaKeluarga.value = groups;
+      console.log("Grouped by Kepala Keluarga:", groupedByKepalaKeluarga.value);
     };
 
     // Open modal and show details of the selected group
@@ -377,3 +377,4 @@ export default {
   border-radius: 0.625rem 0 0 0.625rem;
 }
 </style>
+
