@@ -45,7 +45,7 @@ export default {
   methods: {
     async fetchUsers() {
       try {
-        const response = await fetch("https://demo-ta.my.id/api/users");
+        const response = await fetch("https://www.demo-ta.my.id/api/users");
         const data = await response.json();
         this.counter = 0; // Reset counter
         this.userList = data.users
@@ -66,7 +66,7 @@ export default {
       const tokenStore = useTokenStore();
       try {
         await fetch(
-          `https://demo-ta.my.id/api/users/${this.userIdToDelete}`,
+          `https://www.demo-ta.my.id/api/users/${this.userIdToDelete}`,
           {
             method: "DELETE",
             headers: {
@@ -106,7 +106,7 @@ export default {
       this.isLoading = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/users/${this.editForm.id}`,
+          `https://www.demo-ta.my.id/api/users/${this.editForm.id}`,
           {
             method: "PUT",
             headers: {

@@ -349,7 +349,7 @@ export default {
 
     const fetchAlamat = async () => {
       try {
-        const response = await fetch("https://demo-ta.my.id/api/alamats");
+        const response = await fetch("https://www.demo-ta.my.id/api/alamats");
         const data = await response.json();
 
         if (Array.isArray(data)) {
@@ -368,7 +368,7 @@ export default {
 
     const fetchJorong = async () => {
       try {
-        const response = await fetch("https://demo-ta.my.id/api/jorongs");
+        const response = await fetch("https://www.demo-ta.my.id/api/jorongs");
         const data = await response.json();
         if (Array.isArray(data)) {
           jorongList.value = data;
@@ -399,7 +399,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/alamats/${editForm.id}`,
+          `https://www.demo-ta.my.id/api/alamats/${editForm.id}`,
           {
             method: "PUT",
             headers: {
@@ -453,7 +453,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/alamats/${editForm.id}`,
+          `https://www.demo-ta.my.id/api/alamats/${editForm.id}`,
           {
             method: "DELETE",
             headers: {

@@ -521,7 +521,7 @@ const checkNIKExists = async (nik) => {
 
   try {
     const response = await fetch(
-      `https://demo-ta.my.id/api/check-nik?nik=${nik}`,
+      `https://www.demo-ta.my.id/api/check-nik?nik=${nik}`,
       {
         method: "GET",
         headers: {
@@ -610,7 +610,7 @@ const submitAllData = async () => {
       }
 
       const response = await fetch(
-        "https://demo-ta.my.id/api/anggota_keluargas",
+        "https://www.demo-ta.my.id/api/anggota_keluargas",
         {
           method: "POST",
           headers: {
@@ -636,7 +636,7 @@ const submitAllData = async () => {
 
       if (anggotaForm.hubungan_keluarga === "Kepala Keluarga") {
         await fetch(
-          `https://demo-ta.my.id/api/keluargas/${anggotaForm.keluarga_id}`,
+          `https://www.demo-ta.my.id/api/keluargas/${anggotaForm.keluarga_id}`,
           {
             method: "PUT",
             headers: {

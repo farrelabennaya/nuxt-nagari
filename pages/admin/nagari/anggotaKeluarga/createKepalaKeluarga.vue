@@ -304,7 +304,7 @@ const checkNIKExists = async (nik) => {
   const token = auth.getToken;
 
   try {
-    const response = await fetch(`https://demo-ta.my.id/api/check-nik?nik=${nik}`, {
+    const response = await fetch(`https://www.demo-ta.my.id/api/check-nik?nik=${nik}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -336,7 +336,7 @@ const submitAllData = async () => {
     const token = auth.getToken;
 
     // Buat Kepala Keluarga (tabel anggota_keluargas)
-    const response = await fetch("https://demo-ta.my.id/api/anggota_keluargas", {
+    const response = await fetch("https://www.demo-ta.my.id/api/anggota_keluargas", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -362,7 +362,7 @@ const submitAllData = async () => {
     const kepalaKeluargaId = data.id;  // Dapatkan ID Kepala Keluarga yang baru dibuat
 
     // Perbarui kolom `kepala_keluarga_id` di tabel `keluargas`
-    await fetch(`https://demo-ta.my.id/api/keluargas/${forms[0].keluarga_id}`, {
+    await fetch(`https://www.demo-ta.my.id/api/keluargas/${forms[0].keluarga_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -373,7 +373,7 @@ const submitAllData = async () => {
     });
 
     // Perbarui atau buat entri di tabel `anggota_keluargas` untuk kepala keluarga
-    await fetch(`https://demo-ta.my.id/api/anggota_keluargas/${kepalaKeluargaId}`, {
+    await fetch(`https://www.demo-ta.my.id/api/anggota_keluargas/${kepalaKeluargaId}`, {
       method: "PUT", // Atau POST jika perlu dibuat baru
       headers: {
         "Content-Type": "application/json",

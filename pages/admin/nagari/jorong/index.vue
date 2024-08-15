@@ -322,7 +322,7 @@
   
       const fetchJorong = async () => {
         try {
-          const response = await fetch("https://demo-ta.my.id/api/jorongs");
+          const response = await fetch("https://www.demo-ta.my.id/api/jorongs");
           const data = await response.json();
   
           if (Array.isArray(data)) {
@@ -354,7 +354,7 @@
         isLoading.value = true;
         try {
           const response = await fetch(
-            `https://demo-ta.my.id/api/jorongs/${editForm.id}`,
+            `https://www.demo-ta.my.id/api/jorongs/${editForm.id}`,
             {
               method: "PUT",
               headers: {
@@ -407,7 +407,7 @@
         isLoading.value = true;
         try {
           const response = await fetch(
-            `https://demo-ta.my.id/api/jorongs/${editForm.id}`,
+            `https://www.demo-ta.my.id/api/jorongs/${editForm.id}`,
             {
               method: "DELETE",
               headers: {

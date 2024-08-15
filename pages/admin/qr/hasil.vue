@@ -17,7 +17,7 @@
   
       const fetchRumah = async () => {
         try {
-          const response = await fetch('https://demo-ta.my.id/api/rumahs');
+          const response = await fetch('https://www.demo-ta.my.id/api/rumahs');
           const data = await response.json();
   
           if (Array.isArray(data)) {

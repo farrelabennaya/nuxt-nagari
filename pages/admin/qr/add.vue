@@ -123,7 +123,7 @@ const addFamilyMember = () => {
 const handleSubmit = async () => {
   errors.value = {};
   try {
-    const response = await fetch('https://demo-ta.my.id/api/warga', {
+    const response = await fetch('https://www.demo-ta.my.id/api/warga', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const handleSubmit = async () => {
     }
 
     const data = await response.json();
-    qrCodeUrl.value = `https://demo-ta.my.id/storage/${data.qr_code}`;
+    qrCodeUrl.value = `https://www.demo-ta.my.id/storage/${data.qr_code}`;
     alert("Data warga berhasil disimpan!");
   } catch (error) {
     console.error('Error:', error);

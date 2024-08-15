@@ -183,7 +183,7 @@ const showNotification = (message) => {
 
 const fetchJorong = async () => {
   try {
-    const response = await fetch("https://demo-ta.my.id/api/jorongs");
+    const response = await fetch("https://www.demo-ta.my.id/api/jorongs");
     const data = await response.json();
     jorongList.value = data;
   } catch (error) {
@@ -196,7 +196,7 @@ const handleSubmit = async () => {
   const token = auth.getToken;
 
   try {
-    const response = await fetch("https://demo-ta.my.id/api/alamats", {
+    const response = await fetch("https://www.demo-ta.my.id/api/alamats", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

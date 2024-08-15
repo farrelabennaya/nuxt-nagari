@@ -396,7 +396,7 @@ export default {
     const createAnggotaKeluarga = async () => {
       try {
         const response = await fetch(
-          "https://demo-ta.my.id/api/anggota_keluargas",
+          "https://www.demo-ta.my.id/api/anggota_keluargas",
           {
             method: "POST",
             headers: {

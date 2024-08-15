@@ -168,7 +168,7 @@ export default {
 
     const fetchRumah = async () => {
       try {
-        const response = await fetch("https://demo-ta.my.id/api/rumahs");
+        const response = await fetch("https://www.demo-ta.my.id/api/rumahs");
         const data = await response.json();
 
         if (Array.isArray(data)) {
@@ -191,7 +191,7 @@ export default {
     const generateQrCode = async (rumahId) => {
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/generate-qr-code/${rumahId}`
+          `https://www.demo-ta.my.id/api/generate-qr-code/${rumahId}`
         );
         const data = await response.json();
 

@@ -463,7 +463,7 @@ export default {
 
     const fetchPetugas = async () => {
       try {
-        const response = await fetch("https://demo-ta.my.id/api/petugas");
+        const response = await fetch("https://www.demo-ta.my.id/api/petugas");
         const data = await response.json();
 
         if (Array.isArray(data)) {
@@ -518,7 +518,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/petugas/${editForm.id}`,
+          `https://www.demo-ta.my.id/api/petugas/${editForm.id}`,
           {
             method: "PUT",
             headers: {
@@ -569,7 +569,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/petugas/${id}`,
+          `https://www.demo-ta.my.id/api/petugas/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -599,7 +599,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/petugas/${id}/activate`,
+          `https://www.demo-ta.my.id/api/petugas/${id}/activate`,
           {
             method: "PUT",
             headers: {
@@ -640,7 +640,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/petugas/${id}/deactivate`,
+          `https://www.demo-ta.my.id/api/petugas/${id}/deactivate`,
           {
             method: "PUT",
             headers: {

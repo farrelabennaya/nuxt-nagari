@@ -38,7 +38,7 @@ const handleSubmit = async () => {
   console.log('Token used for request:', token); // Check the console to see if the token is logged correctly
 
   try {
-    const response = await fetch('https://demo-ta.my.id/api/jorongs', {
+    const response = await fetch('https://www.demo-ta.my.id/api/jorongs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

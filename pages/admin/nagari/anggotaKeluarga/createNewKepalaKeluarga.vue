@@ -436,7 +436,7 @@ const checkNIKExists = async (nik) => {
 
   try {
     const response = await fetch(
-      `https://demo-ta.my.id/api/check-nik?nik=${nik}`,
+      `https://www.demo-ta.my.id/api/check-nik?nik=${nik}`,
       {
         method: "GET",
         headers: {
@@ -480,7 +480,7 @@ const submitAllData = async () => {
 
     // Buat Kepala Keluarga (tabel anggota_keluargas)
     const response = await fetch(
-      "https://demo-ta.my.id/api/anggota_keluargas",
+      "https://www.demo-ta.my.id/api/anggota_keluargas",
       {
         method: "POST",
         headers: {
@@ -505,7 +505,7 @@ const submitAllData = async () => {
 
       // Perbarui kolom `kepala_keluarga_id` di tabel `keluargas`
       await fetch(
-        `https://demo-ta.my.id/api/keluargas/${forms[0].keluarga_id}`,
+        `https://www.demo-ta.my.id/api/keluargas/${forms[0].keluarga_id}`,
         {
           method: "PUT",
           headers: {
@@ -519,7 +519,7 @@ const submitAllData = async () => {
 
       // Perbarui atau buat entri di tabel `anggota_keluargas` untuk kepala keluarga
       await fetch(
-        `https://demo-ta.my.id/api/anggota_keluargas/${kepalaKeluargaId}`,
+        `https://www.demo-ta.my.id/api/anggota_keluargas/${kepalaKeluargaId}`,
         {
           method: "PUT", // Atau POST jika perlu dibuat baru
           headers: {

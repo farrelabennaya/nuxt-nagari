@@ -568,7 +568,7 @@ export default {
 
     const fetchKeluarga = async () => {
       try {
-        const response = await fetch("https://demo-ta.my.id/api/keluargas");
+        const response = await fetch("https://www.demo-ta.my.id/api/keluargas");
         const data = await response.json();
 
         if (Array.isArray(data)) {
@@ -591,7 +591,7 @@ export default {
     const fetchKeluargaStats = async () => {
       try {
         const response = await fetch(
-          "https://demo-ta.my.id/api/keluarga/stats"
+          "https://www.demo-ta.my.id/api/keluarga/stats"
         );
         const data = await response.json();
         keluargaStats.value = data;
@@ -602,7 +602,7 @@ export default {
 
     const fetchRumah = async () => {
       try {
-        const response = await fetch("https://demo-ta.my.id/api/rumahs");
+        const response = await fetch("https://www.demo-ta.my.id/api/rumahs");
         const data = await response.json();
         if (Array.isArray(data)) {
           rumahList.value = data;
@@ -617,7 +617,7 @@ export default {
     const fetchAnggotaKeluarga = async () => {
       try {
         const response = await fetch(
-          "https://demo-ta.my.id/api/anggota_keluargas"
+          "https://www.demo-ta.my.id/api/anggota_keluargas"
         );
         const data = await response.json();
         if (Array.isArray(data)) {
@@ -651,7 +651,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/keluargas/${editForm.id}`,
+          `https://www.demo-ta.my.id/api/keluargas/${editForm.id}`,
           {
             method: "PUT",
             headers: {
@@ -703,7 +703,7 @@ export default {
   isLoading.value = true;
   try {
     const response = await fetch(
-      `https://demo-ta.my.id/api/keluargas/${editForm.id}`,
+      `https://www.demo-ta.my.id/api/keluargas/${editForm.id}`,
       {
         method: "DELETE",
         headers: {

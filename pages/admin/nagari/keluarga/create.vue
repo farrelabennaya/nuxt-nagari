@@ -123,7 +123,7 @@ const handleSubmit = async () => {
   const token = auth.getToken;
 
   try {
-    const response = await fetch("https://demo-ta.my.id/api/keluargas", {
+    const response = await fetch("https://www.demo-ta.my.id/api/keluargas", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

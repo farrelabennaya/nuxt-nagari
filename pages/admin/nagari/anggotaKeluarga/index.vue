@@ -331,7 +331,7 @@ export default {
 
     const fetchAnggotaKeluarga = async () => {
       try {
-        const response = await fetch("https://demo-ta.my.id/api/anggota_keluargas");
+        const response = await fetch("https://www.demo-ta.my.id/api/anggota_keluargas");
         const data = await response.json();
         if (Array.isArray(data)) {
           anggotaKeluargaList.value = data;
@@ -368,7 +368,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/anggota_keluargas/${editForm.id}`,
+          `https://www.demo-ta.my.id/api/anggota_keluargas/${editForm.id}`,
           {
             method: "PUT",
             headers: {
@@ -415,7 +415,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://demo-ta.my.id/api/anggota_keluargas/${editForm.id}`,
+          `https://www.demo-ta.my.id/api/anggota_keluargas/${editForm.id}`,
           {
             method: "DELETE",
             headers: {

@@ -140,7 +140,7 @@
   
   async function handleScan(scannedData) {
     try {
-      const response = await fetch(`https://demo-ta.my.id/api/decrypt-qr-code`, {
+      const response = await fetch(`https://www.demo-ta.my.id/api/decrypt-qr-code`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
