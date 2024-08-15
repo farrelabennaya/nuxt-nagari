@@ -13,7 +13,7 @@
               class="bg-white rounded-lg shadow-sm p-6 flex justify-between items-center relative overflow-x-auto ml-5 mr-5 mt-5 mb-5"
             >
               <div>
-                <h2 class="text-xl font-bold text-gray-800">Detail Keluarga EEg</h2>
+                <h2 class="text-xl font-bold text-gray-800">Detail Keluarga</h2>
                 <p class="text-gray-500">Kelola Anggota Keluarga</p>
               </div>
               <NuxtLink
@@ -255,7 +255,7 @@ export default {
 
       try {
         const response = await fetch(
-          `http://laravel-api.test/api/keluargas/${id}`
+          `https://demo-ta.my.id/api/keluargas/${id}`
         );
         const data = await response.json();
         keluargaDetail.value = data;
@@ -270,7 +270,7 @@ export default {
     const fetchAnggotaKeluarga = async (keluargaId) => {
       try {
         const response = await fetch(
-          `http://laravel-api.test/api/anggota_keluargas`
+          `https://demo-ta.my.id/api/anggota_keluargas`
         );
         const data = await response.json();
         anggotaKeluarga.value = data.filter(
