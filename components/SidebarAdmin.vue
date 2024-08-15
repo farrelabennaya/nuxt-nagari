@@ -42,6 +42,10 @@ onMounted(() => {
     pendudukDropdownOpen.value = pendudukDropdownState === "true";
   }
 
+  useFlowbite(() => {
+    initFlowbite();
+  });
+
   updateActiveMenu();
 
   // Menghapus status dropdown dari localStorage saat halaman di-refresh
