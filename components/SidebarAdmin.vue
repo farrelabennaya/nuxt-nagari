@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { initFlowbite } from "flowbite";
 import { ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -28,6 +29,9 @@ const updateActiveMenu = () => {
 };
 
 onMounted(() => {
+  useFlowbite(() => {
+    initFlowbite();
+  });
   const userDropdownState = localStorage.getItem("userDropdownOpen");
   if (userDropdownState !== null) {
     userDropdownOpen.value = userDropdownState === "true";
@@ -42,9 +46,7 @@ onMounted(() => {
     pendudukDropdownOpen.value = pendudukDropdownState === "true";
   }
 
-  useFlowbite(() => {
-    initFlowbite();
-  });
+  
 
   updateActiveMenu();
 
