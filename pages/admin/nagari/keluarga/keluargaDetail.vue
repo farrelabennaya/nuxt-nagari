@@ -13,7 +13,7 @@
               class="bg-white rounded-lg shadow-sm p-6 flex justify-between items-center relative overflow-x-auto ml-5 mr-5 mt-5 mb-5"
             >
               <div>
-                <h2 class="text-xl font-bold text-gray-800">Detail Keluarga</h2>
+                <h2 class="text-xl font-bold text-gray-800">Detail Keluarga EEg</h2>
                 <p class="text-gray-500">Kelola Anggota Keluarga</p>
               </div>
               <NuxtLink
