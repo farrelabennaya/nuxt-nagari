@@ -1,0 +1,1 @@
+import{f as t,g as o,c as a,r as s,o as l}from"./ymCw7azN.js";const c={__name:"default",setup(n){return t(()=>{o(()=>{initFlowbite()})}),(e,r)=>(l(),a("div",null,[s(e.$slots,"default")]))}};export{c as default};

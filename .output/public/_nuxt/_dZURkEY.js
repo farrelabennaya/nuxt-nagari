@@ -1,0 +1,1 @@
+import{X as u,T as t}from"./ymCw7azN.js";import{a as o,u as n}from"./2TKp5wxK.js";const g=u((e,i)=>{const a=o(),r=n(),s=["/auth/login","/auth/register"];if(a.getStatus&&s.includes(e.path))switch(r.user.role_id){case 1:return t("/admin");case 2:return t("/petugas");case 3:return t("/warga");default:return t("/")}});export{g as default};
