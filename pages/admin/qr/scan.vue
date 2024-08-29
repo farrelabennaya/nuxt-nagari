@@ -140,25 +140,22 @@
   
   async function handleScan(scannedData) {
     try {
-      const response = await fetch(`https://www.demo-ta.my.id/api/decrypt-qr-code`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ encryptedData: scannedData }),
-      });
-  
-      const result = await response.json();
-      if (result.data) {
-        text.value = result.data;
-      } else {
-        text.value = "Failed to decrypt QR code.";
-      }
+        console.log("Scanned Data:", scannedData); // Log scanned data
+        
+        // Pastikan data yang dipindai adalah URL
+        if (scannedData.startsWith('http')) {
+            // Redirect ke URL yang ada di dalam QR code
+            window.location.href = scannedData;
+        } else {
+            text.value = "Invalid QR code content.";
+        }
     } catch (error) {
-      console.error("Decryption error:", error);
-      text.value = "Failed to decrypt QR code.";
+        console.error("Error handling scan:", error);
+        text.value = "Failed to process QR code.";
     }
-  }
+}
+
+
   
   function isValidFormat(data) {
     return data.includes("Nama:"); // Implement your validation logic

@@ -15,15 +15,22 @@ export default defineNuxtConfig({
     prefetchLinks: false
   },
   
-  modules: [
-    "@nuxt/ui",
-    "@nuxtjs/tailwindcss",
-    "@pinia/nuxt",
-    "@pinia-plugin-persistedstate/nuxt",
-  ],
+  modules: ["@nuxt/ui", "@nuxtjs/tailwindcss", "@pinia/nuxt", // "@nuxtjs/ngrok"
+  "@pinia-plugin-persistedstate/nuxt", "@nuxtjs/leaflet"],
+
+ 
+
   pinia: {
     storesDirs: ["./stores/**", "./custom-folder/stores/**"],
   },
+
+  // fontawesome: {
+  //   icons: {
+  //     solid: ['dollar-sign', 'cog', 'circle', 'check', 'calendar'],
+  //     regular: ['user']
+  //   }
+  // },
+  
 
   app: {
     head: {
@@ -37,4 +44,11 @@ export default defineNuxtConfig({
     },
   },
 
+  // ngrok: {
+  //   authtoken: '2KcTmf6I5kpG4Huw7bXpWkQb9YK_6JrS29F28zUfLeyc1RQHh', // Use NGROK_AUTHTOKEN environment variable
+  //   // authtoken: 'your_ngrok_authtoken', // Or use this option
+  //   auth: 'username1:password1',
+  //   domain: 'mastodon-willing-osprey.ngrok-free.app',
+  //   production: true,
+  // },
 });

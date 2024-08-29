@@ -117,7 +117,7 @@ definePageMeta({
               </ul>
             </div>
 
-            <div class="hidden lg:flex items-center">
+            <!-- <div class="hidden lg:flex items-center">
               <span class="text-base font-normal text-gray-500 mr-5"
                 ><p class="py-2">
                   Halo, <strong>{{ auth.getUser?.name }} ❤️</strong>
@@ -133,7 +133,7 @@ definePageMeta({
                   </button>
                 </template>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

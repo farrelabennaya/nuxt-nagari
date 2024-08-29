@@ -64,7 +64,7 @@
                 <h2 class="text-xl font-bold text-gray-800">Keluarga</h2>
                 <p class="text-gray-500">Kelola Keluarga</p>
               </div>
-              <NuxtLink to="/admin/nagari/keluarga/create">
+              <NuxtLink to="/admin/nagari/keluarga/createKeluarga">
                 <button
                   class="bg-green-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300"
                 >
@@ -91,127 +91,165 @@
           </main>
 
           <!-- Statistic Cards -->
+
           <div
             class="grid grid-cols-1 md:grid-cols-2 gap-6 relative overflow-x-auto ml-5 mr-5"
           >
             <div
-              class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-4 min-h-[150px]"
+              class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5"
             >
-              <div class="flex items-center">
-                <div class="bg-green-200 p-3 rounded-full">
-                  <svg
-                    class="w-6 h-6 text-green-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    ></path>
-                  </svg>
+              <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-4">
+                  <div class="rounded-full p-5 bg-green-600">
+                    <i class="fas fa-users fa-2x fa-inverse"></i>
+                  </div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                  <h2 class="font-bold uppercase text-gray-600">
+                    Total Rumah (Keluarga)
+                  </h2>
+                  <p class="font-bold text-3xl">
+                    {{ keluargaStats.totalKeluarga }}
+                  </p>
                 </div>
               </div>
-              <div>
-                <p class="text-gray-500">Total Keluarga</p>
-                <p class="text-2xl font-semibold">
-                  {{ keluargaStats.totalKeluarga }}
-                </p>
-              </div>
-              <!-- <div class="ml-auto text-green-500">↑ 12%</div> -->
             </div>
             <div
-              class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-4"
+              class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5"
             >
-              <div class="flex items-center">
-                <div class="bg-red-200 p-3 rounded-full">
-                  <svg
-                    class="w-6 h-6 text-red-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    ></path>
-                  </svg>
+              <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-4">
+                  <div class="rounded-full p-5 bg-pink-600">
+                    <i class="fa-solid fa-2x fa-user fa-inverse"></i>
+                  </div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                  <h2 class="font-bold uppercase text-gray-600">
+                    Total Kartu Keluarga
+                  </h2>
+                  <p class="font-bold text-3xl">
+                    {{ keluargaStats.totalKepalaKeluarga }}
+                  </p>
                 </div>
               </div>
-              <div>
-                <p class="text-gray-500">Total Kepala Keluarga</p>
-                <p class="text-2xl font-semibold">
-                  {{ keluargaStats.totalKepalaKeluarga }}
-                </p>
-              </div>
-              <!-- <div class="ml-auto text-red-500">↓ 16%</div> -->
             </div>
-            <!-- <div
-              class="bg-white p-6 rounded-lg shadow-lg flex items-center space-x-4"
-            >
-              <div class="flex items-center">
-                <div class="bg-yellow-200 p-3 rounded-full">
-                  <svg
-                    class="w-6 h-6 text-yellow-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <p class="text-gray-500">Total KK</p>
-                <p class="text-2xl font-semibold">
-                  {{ keluargaStats.totalKK }}
-                </p>
-              </div>
-               <div class="ml-auto text-yellow-500">⚠ Overflow</div>
-            </div> -->
           </div>
         </div>
 
         <div
-          class="grid grid-cols-1 md:grid-cols-2 p-6 lg:grid-cols-2 gap-6 -mt-20 relative overflow-x-auto ml-5 mr-5"
+          class="grid grid-cols-1 md:grid-cols-2 p-6 lg:grid-cols-2 gap-6 -mt-32 relative overflow-x-auto ml-5 mr-5"
         >
-          <template v-if="keluargaList.length > 0">
+          <div>
+            <h2 class="text-xl font-bold text-gray-800"></h2>
+          </div>
+
+          <!-- Form Search aligned to the right -->
+          <form class="flex ml-auto" @submit.prevent>
+            <div class="flex">
+              <div
+                id="dropdown"
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+              ></div>
+              <div class="relative w-80">
+                <input
+                  type="search"
+                  id="search-dropdown"
+                  v-model="searchQuery"
+                  class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                  placeholder="Cari Nama Kepala Keluarga..."
+                  required
+                />
+                <button
+                  type="submit"
+                  class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                    />
+                  </svg>
+                  <span class="sr-only">Search</span>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <template v-if="paginatedKeluargaList.length > 0">
             <div
-              v-for="keluarga in keluargaList"
+              v-for="keluarga in paginatedKeluargaList"
               :key="keluarga.id"
-              class="bg-white p-6 rounded-lg shadow-sm flex items-center space-x-4 min-h-[130px] border border-gray-500"
+              class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-between"
             >
-              <div>
-                <p class="text-gray-700 font-semibold">
-                  {{ keluarga.kepala_keluarga.nama }}
-                </p>
-                <p class="text-gray-400 text-sm">
-                  {{ keluarga.rumah.alamat.detail_alamat }}
-                </p>
-                <p class="text-gray-500 text-sm">
-                  Jumlah KK: {{ keluarga.jumlah_kk }}
+              <!-- Header with keluarga title and family icon -->
+              <div class="mb-4">
+                <div class="flex items-center space-x-4">
+                  <div class="bg-white p-2 rounded-full">
+                    <svg
+                      class="w-8 h-8 text-gray-800 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <h2 class="text-2xl font-bold">
+                    Keluarga {{ keluarga.nama_keluarga }}
+                  </h2>
+                </div>
+                <p class="mt-1 text-sm">
+                  Jumlah Kartu Keluarga: {{ keluarga.jumlahKepalaKeluarga }}
                 </p>
               </div>
-              <div class="flex space-x-2 ml-auto">
+
+              <!-- Detail keluarga -->
+              <div class="mb-4">
+                <p class="text-lg font-semibold">
+                  Kepala Keluarga:
+                  <template v-if="keluarga.kepala_keluarga.length > 0">
+                    <span
+                      v-for="(kepala, index) in keluarga.kepala_keluarga"
+                      :key="kepala.id"
+                    >
+                      {{ kepala.nama
+                      }}<span v-if="index < keluarga.kepala_keluarga.length - 1"
+                        >,
+                      </span>
+                    </span>
+                  </template>
+                  <template v-else> Tidak ada kepala keluarga </template>
+                </p>
+                <p class="text-sm mt-2">
+                  Alamat: {{ keluarga.rumah.alamat.detail_alamat }}
+                </p>
+              </div>
+
+              <!-- Action buttons -->
+              <div class="flex space-x-2 mt-auto">
                 <button
                   @click="openEditModal(keluarga)"
-                  class="flex p-1.5 border border-yellow-500 rounded-lg hover:rounded-xl hover:bg-yellow-100 transition-all duration-300 text-yellow-500"
+                  class="flex items-center justify-center p-2 bg-yellow-400 text-yellow-900 rounded-lg hover:bg-yellow-500 transition-all duration-300"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 w-4"
+                    class="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -223,14 +261,16 @@
                       d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                     />
                   </svg>
+                  <span class="ml-2">Edit</span>
                 </button>
+
                 <button
                   @click="confirmDeleteKeluarga(keluarga.id)"
-                  class="flex p-1.5 border border-red-500 rounded-lg hover:rounded-xl hover:bg-red-100 transition-all duration-300 text-red-500"
+                  class="flex items-center justify-center p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 w-4"
+                    class="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -242,14 +282,16 @@
                       d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
                     />
                   </svg>
+                  <span class="ml-2">Delete</span>
                 </button>
+
                 <button
                   @click="viewDetail(keluarga.id)"
-                  class="flex p-1.5 border border-blue-500 rounded-lg hover:rounded-xl hover:bg-blue-100 transition-all duration-300 text-blue-500"
+                  class="flex items-center justify-center p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 w-4"
+                    class="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -261,17 +303,103 @@
                       d="M15 12h.01M12 12h.01M9 12h.01M4 4h16M4 20h16"
                     />
                   </svg>
+                  <span class="ml-2">View</span>
                 </button>
               </div>
             </div>
           </template>
+
           <template v-else>
             <div
               class="col-span-full w-full bg-white border border-gray-200 rounded-lg shadow-md p-6 text-center text-gray-500"
             >
-              <p>Belum ada keluarga yang terdaftar.</p>
+              <p class="text-gray-500">Belum ada keluarga yang terdaftar.</p>
             </div>
           </template>
+        </div>
+
+        <!-- Pagination Component -->
+        <div class="flex flex-col lg:flex-row ml-10 mr-10 justify-between mt-4">
+          <div class="flex flex-col lg:flex-row items-center space-x-2 text-xs">
+            <button
+              class="py-2 px-4 bg-white text-gray-600 font-medium rounded hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center"
+            >
+              {{ itemsPerPage }} items
+            </button>
+            <p class="text-gray-500 mt-4 lg:mt-0">
+              Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+              {{
+                Math.min(
+                  currentPage * itemsPerPage,
+                  filteredKeluargaList.length
+                )
+              }}
+              of {{ filteredKeluargaList.length }} entries
+            </p>
+          </div>
+
+          <!-- Navigation for Pagination -->
+          <nav
+            aria-label="Pagination"
+            class="flex justify-center items-center text-gray-600 mt-8 lg:mt-0"
+          >
+            <a
+              href="#"
+              @click.prevent="changePage(currentPage - 1)"
+              :class="{ 'pointer-events-none opacity-50': currentPage === 1 }"
+              class="p-2 mr-4 rounded hover:bg-gray-100"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </a>
+            <span
+              v-for="page in totalPages"
+              :key="page"
+              @click.prevent="changePage(page)"
+              class="px-4 py-2 rounded cursor-pointer hover:bg-gray-100"
+              :class="{
+                'bg-gray-200 font-medium text-gray-900': page === currentPage,
+              }"
+            >
+              {{ page }}
+            </span>
+
+            <a
+              href="#"
+              @click.prevent="changePage(currentPage + 1)"
+              :class="{
+                'pointer-events-none opacity-50': currentPage === totalPages,
+              }"
+              class="p-2 ml-4 rounded hover:bg-gray-100"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </a>
+          </nav>
         </div>
 
         <!-- Edit Modal -->
@@ -318,18 +446,18 @@
               </div>
               <div class="mb-4">
                 <label
-                  for="edit-jumlah_kk"
+                  for="edit-no_kk"
                   class="block text-sm font-medium text-gray-700"
                   >Jumlah KK</label
                 >
                 <input
-                  id="edit-jumlah_kk"
-                  v-model="editForm.jumlah_kk"
+                  id="edit-no_kk"
+                  v-model="editForm.no_kk"
                   type="number"
                   class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
                 />
-                <span v-if="errors.jumlah_kk" class="text-red-500">{{
-                  errors.jumlah_kk[0]
+                <span v-if="errors.no_kk" class="text-red-500">{{
+                  errors.no_kk[0]
                 }}</span>
               </div>
               <div class="mb-4">
@@ -481,8 +609,11 @@ export default {
     const router = useRouter();
     const keluargaList = ref([]);
     const rumahList = ref([]);
+    const searchQuery = ref("");
     const anggotaKeluargaList = ref([]);
     const usedKepalaKeluarga = ref([]);
+    const currentPage = ref(1); // Current page number
+    const itemsPerPage = ref(10); // Number of items per page
     const keluargaStats = ref({
       totalKeluarga: 0,
       totalKepalaKeluarga: 0,
@@ -494,7 +625,7 @@ export default {
     const editForm = reactive({
       id: "",
       rumah_id: "",
-      jumlah_kk: "",
+      no_kk: "",
       kepala_keluarga: "",
     });
     const errors = ref([]);
@@ -502,6 +633,25 @@ export default {
     const notification = reactive({
       message: "",
       show: false,
+    });
+
+    // Perhitungan jumlah halaman
+    const totalPages = computed(() => {
+      return Math.ceil(filteredKeluargaList.value.length / itemsPerPage.value);
+    });
+
+    // Method untuk mengubah halaman
+    const changePage = (page) => {
+      if (page >= 1 && page <= totalPages.value) {
+        currentPage.value = page;
+      }
+    };
+
+    // Paginated list
+    const paginatedKeluargaList = computed(() => {
+      const start = (currentPage.value - 1) * itemsPerPage.value;
+      const end = start + itemsPerPage.value;
+      return filteredKeluargaList.value.slice(start, end);
     });
 
     const viewDetail = (id) => {
@@ -558,26 +708,60 @@ export default {
       );
     });
 
-    const showNotification = (message) => {
-      notification.message = message;
-      notification.show = true;
-      setTimeout(() => {
-        notification.show = false;
-      }, 3000);
-    };
+    const keluargaWithKepala = computed(() => {
+      return keluargaList.value.map((keluarga) => {
+        // Cari kepala keluarga yang sesuai di anggota keluarga
+        const kepalaKeluarga = anggotaKeluargaList.value.filter(
+          (anggota) =>
+            anggota.keluarga_id === keluarga.id &&
+            anggota.hubungan_keluarga === "Kepala Keluarga"
+        );
+
+        // Tambahkan properti 'jumlahKepalaKeluarga' untuk menghitung kepala keluarga
+        return {
+          ...keluarga,
+          kepala_keluarga: kepalaKeluarga,
+          jumlahKepalaKeluarga: kepalaKeluarga.length, // Hitung jumlah kepala keluarga
+        };
+      });
+    });
+
+    // Computed property to filter keluargaList based on the searchQuery
+    const filteredKeluargaList = computed(() => {
+      if (!searchQuery.value) {
+        return keluargaWithKepala.value;
+      }
+      return keluargaWithKepala.value.filter((keluarga) => {
+        // Periksa nama kepala keluarga
+        const kepalaKeluargaMatch = keluarga.kepala_keluarga.some((kepala) =>
+          kepala.nama.toLowerCase().includes(searchQuery.value.toLowerCase())
+        );
+        // Periksa alamat rumah
+        const alamatMatch = keluarga.rumah.alamat.detail_alamat
+          .toLowerCase()
+          .includes(searchQuery.value.toLowerCase());
+
+        return kepalaKeluargaMatch || alamatMatch;
+      });
+    });
 
     const fetchKeluarga = async () => {
       try {
-        const response = await fetch("https://www.demo-ta.my.id/api/keluargas");
+        const response = await fetch("http://laravel-api.test/api/keluargas");
         const data = await response.json();
 
         if (Array.isArray(data)) {
           counter.value = 0;
-          keluargaList.value = data.map((keluarga) => ({
-            ...keluarga,
-            number: ++counter.value,
-          }));
-          usedKepalaKeluarga.value = data.map(
+          keluargaList.value = data
+            .filter(
+              (keluarga) =>
+                keluarga.rumah_id !== null && keluarga.kepala_keluarga !== null
+            )
+            .map((keluarga) => ({
+              ...keluarga,
+              number: ++counter.value,
+            }));
+          usedKepalaKeluarga.value = keluargaList.value.map(
             (keluarga) => keluarga.kepala_keluarga.id
           );
         } else {
@@ -591,7 +775,7 @@ export default {
     const fetchKeluargaStats = async () => {
       try {
         const response = await fetch(
-          "https://www.demo-ta.my.id/api/keluarga/stats"
+          "http://laravel-api.test/api/keluarga/stats"
         );
         const data = await response.json();
         keluargaStats.value = data;
@@ -602,7 +786,7 @@ export default {
 
     const fetchRumah = async () => {
       try {
-        const response = await fetch("https://www.demo-ta.my.id/api/rumahs");
+        const response = await fetch("http://laravel-api.test/api/rumahs");
         const data = await response.json();
         if (Array.isArray(data)) {
           rumahList.value = data;
@@ -617,7 +801,7 @@ export default {
     const fetchAnggotaKeluarga = async () => {
       try {
         const response = await fetch(
-          "https://www.demo-ta.my.id/api/anggota_keluargas"
+          "http://laravel-api.test/api/anggota_keluargas"
         );
         const data = await response.json();
         if (Array.isArray(data)) {
@@ -640,7 +824,7 @@ export default {
     const openEditModal = (keluarga) => {
       editForm.id = keluarga.id;
       editForm.rumah_id = keluarga.rumah.id;
-      editForm.jumlah_kk = keluarga.jumlah_kk;
+      editForm.no_kk = keluarga.no_kk;
       editForm.kepala_keluarga = keluarga.kepala_keluarga.id;
       isEditModalOpen.value = true;
     };
@@ -651,7 +835,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://www.demo-ta.my.id/api/keluargas/${editForm.id}`,
+          `http://laravel-api.test/api/keluargas/${editForm.id}`,
           {
             method: "PUT",
             headers: {
@@ -661,7 +845,7 @@ export default {
             },
             body: JSON.stringify({
               rumah_id: editForm.rumah_id,
-              jumlah_kk: editForm.jumlah_kk,
+              no_kk: editForm.no_kk,
               kepala_keluarga: editForm.kepala_keluarga,
             }),
           }
@@ -700,42 +884,42 @@ export default {
       isDeleteModalOpen.value = true;
     };
     const deleteKeluarga = async () => {
-  isLoading.value = true;
-  try {
-    const response = await fetch(
-      `https://www.demo-ta.my.id/api/keluargas/${editForm.id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${tokenStore.getToken}`,
-        },
-      }
-    );
+      isLoading.value = true;
+      try {
+        const response = await fetch(
+          `http://laravel-api.test/api/keluargas/${editForm.id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${tokenStore.getToken}`,
+            },
+          }
+        );
 
-    if (!response.ok) {
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        const data = await response.json();
-        throw new Error(data.message || "Gagal menghapus keluarga");
-      } else {
-        const text = await response.text();
-        console.error("Unexpected response format", text);
-        throw new Error("Unexpected response format");
-      }
-    }
+        if (!response.ok) {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await response.json();
+            throw new Error(data.message || "Gagal menghapus keluarga");
+          } else {
+            const text = await response.text();
+            console.error("Unexpected response format", text);
+            throw new Error("Unexpected response format");
+          }
+        }
 
-    keluargaList.value = keluargaList.value.filter(
-      (keluarga) => keluarga.id !== editForm.id
-    );
-    showNotification("Keluarga berhasil dihapus!");
-    isDeleteModalOpen.value = false; // Pastikan modal tertutup
-  } catch (error) {
-    console.error("Kesalahan menghapus keluarga:", error);
-    showNotification("Gagal menghapus keluarga!");
-  } finally {
-    isLoading.value = false;
-  }
-};
+        keluargaList.value = keluargaList.value.filter(
+          (keluarga) => keluarga.id !== editForm.id
+        );
+        showNotification("Keluarga berhasil dihapus!");
+        isDeleteModalOpen.value = false; // Pastikan modal tertutup
+      } catch (error) {
+        console.error("Kesalahan menghapus keluarga:", error);
+        showNotification("Gagal menghapus keluarga!");
+      } finally {
+        isLoading.value = false;
+      }
+    };
 
     const selectRumah = (rumah) => {
       editForm.rumah_id = rumah.id;
@@ -785,6 +969,9 @@ export default {
 
     return {
       keluargaList,
+      keluargaWithKepala,
+      searchQuery, // Bind search query
+      filteredKeluargaList, // Use this filtered list in the template
       rumahList,
       anggotaKeluargaList,
       usedKepalaKeluarga,
@@ -819,6 +1006,11 @@ export default {
       hideDropdown,
       fetchKeluargaStats, // Tambahkan ini jika ingin digunakan di tempat lain
       viewDetail,
+      currentPage,
+      itemsPerPage,
+      totalPages,
+      changePage,
+      paginatedKeluargaList,
     };
   },
 };
@@ -830,6 +1022,22 @@ export default {
 }
 
 .custom-header {
-  background-color: #adc4ce;
+  background: linear-gradient(to right, #adc4ce, #e0ebf0);
+}
+
+container {
+  max-width: 1200px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 </style>

@@ -1,7 +1,8 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import Keluarga from '../pages/Keluarga.vue';
-import KeluargaDetail from '../pages/KeluargaDetail.vue'; // Import halaman detail
+import KeluargaDetail from '../pages/KeluargaDetail.vue';
+import PendudukList from '@/pages/admin/maps/penduduklist.vue';
+import ViewMap from '@/pages/admin/maps/viewmaps.vue';
 
 const routes = [
   {
@@ -13,13 +14,22 @@ const routes = [
     path: '/keluarga/:id',
     name: 'keluarga-detail',
     component: KeluargaDetail,
-    props: true, // Pass route params as props
+    props: true,
   },
-  // other routes...
+  {
+    path: '/admin/penduduk',
+    name: 'penduduk-list',
+    component: PendudukList,
+  },
+  {
+    path: '/admin/viewmaps',
+    name: 'view-map',
+    component: ViewMap,
+  },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 });
 

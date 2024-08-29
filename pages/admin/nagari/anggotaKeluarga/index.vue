@@ -52,29 +52,402 @@
       <SidebarAdmin />
       <div
         id="main-content"
-        class="h-full w-full bg-gray-50 relative overflow-y-auto sm:ml-64"
+        class="min-h-screen h-full w-full bg-gray-50 relative overflow-y-auto sm:ml-64"
       >
-        <main>
-          <div class="pt-6 px-4 ml-5 mr-5">
-            <h1 class="text-lg font-bold mb-4">Data Anggota Keluarga</h1>
-            <!-- <tr>
-              <td>
-                <NuxtLink to="/admin/nagari/keluarga/create">
-                  <button
-                    type="button"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  >
-                    Add Keluarga +
-                  </button></NuxtLink
+        <div class="custom-header to-gray-100 p-6 pb-32 pt-5">
+          <main>
+            <div
+              class="bg-white rounded-lg shadow-sm p-6 flex justify-between items-center relative overflow-x-auto ml-5 mr-5 mt-5 mb-5"
+            >
+              <div>
+                <h2 class="text-xl font-bold text-gray-800">Penduduk</h2>
+                <p class="text-gray-500">Data Penduduk</p>
+              </div>
+              <!-- <NuxtLink to="/admin/user/create">
+                <button
+                  class="bg-green-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300"
                 >
-              </td>
-            </tr> -->
-            <slot />
+                  + Tambah User
+                </button>
+              </NuxtLink> -->
+            </div>
+          </main>
+
+          <!-- Statistic Cards -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-4 gap-6 relative overflow-x-auto ml-5 mr-5"
+          >
+            <div
+              class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5"
+            >
+              <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-4">
+                  <div class="rounded-full p-5 bg-green-600">
+                    <i class="fa-solid fa-2x fa-user fa-inverse"></i>
+                  </div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                  <h2 class="font-bold uppercase text-gray-600">
+                    Jumlah Kepala Keluarga
+                  </h2>
+                  <p class="font-bold text-3xl">{{ jumlahKepalaKeluarga }}</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5"
+            >
+              <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-4">
+                  <div class="rounded-full p-5 bg-pink-600">
+                    <i class="fas fa-users fa-2x fa-inverse"></i>
+                  </div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                  <h2 class="font-bold uppercase text-gray-600">
+                    Jumlah Penduduk
+                  </h2>
+                  <p class="font-bold text-3xl">{{ jumlahPenduduk }}</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5"
+            >
+              <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-4">
+                  <div class="rounded-full p-5 bg-yellow-600">
+                    <i class="fa-solid fa-person fa-2x fa-inverse"></i>
+                  </div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                  <h2 class="font-bold uppercase text-gray-600">
+                    Jumlah Laki-laki
+                  </h2>
+                  <p class="font-bold text-3xl">{{ jumlahLakiLaki }}</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-gradient-to-b from-blue-200 to-blue-100 border-b-4 border-blue-500 rounded-lg shadow-xl p-5"
+            >
+              <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-4">
+                  <div class="rounded-full p-5 bg-blue-600">
+                    <i class="fa-solid fa-2x fa-inverse fa-person-dress"></i>
+                  </div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                  <h2 class="font-bold uppercase text-gray-600">
+                    Jumlah Perempuan
+                  </h2>
+                  <p class="font-bold text-3xl">{{ jumlahPerempuan }}</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </main>
+        </div>
 
+        <div
+          class="min-h-screen relative overflow-x-auto ml-5 mr-5 -mt-32 p-6 pb-32 pt-5"
+        >
+          <div class="flex justify-between items-center mb-4">
+            <!-- Bagian Filter sebagai Dropdown -->
+            <div class="relative">
+              <!-- Tombol untuk membuka dan menutup dropdown -->
+              <button
+                @click="toggleDropdown"
+                class="flex items-center py-2 px-4 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200"
+              >
+                Filter
+                <svg
+                  class="ml-2 w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
 
-            <div class="relative overflow-x-auto ml-5 mr-5">
+              <!-- Dropdown Menu -->
+              <div
+                v-if="isDropdownOpen"
+                class="absolute z-10 mt-2 w-max bg-white border border-gray-300 rounded-lg shadow-lg p-6 grid grid-cols-2 gap-4"
+              >
+                <div class="col-span-2">
+                  <button
+                    @click="clearFilter"
+                    class="w-full bg-red-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+                  >
+                    Clear Filter
+                  </button>
+                </div>
+                <!-- Filter Usia -->
+                <div class="mb-4">
+                  <label
+                    for="usia-filter"
+                    class="block text-sm font-medium text-gray-700"
+                    >Usia</label
+                  >
+                  <select
+                    id="usia-filter"
+                    v-model="selectedUsiaRange"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  >
+                    <option value="">Semua Usia</option>
+                    <option value="child">
+                      Anak-anak (Kurang dari setahun-12)
+                    </option>
+                    <option value="teenager">Remaja (13-19)</option>
+                    <option value="adult">Dewasa (20-59)</option>
+                    <option value="elderly">Lansia (60+)</option>
+                  </select>
+                </div>
+
+                <!-- Filter Agama -->
+                <div class="mb-4">
+                  <label
+                    for="agama-filter"
+                    class="block text-sm font-medium text-gray-700"
+                    >Agama</label
+                  >
+                  <select
+                    id="agama-filter"
+                    v-model="selectedAgama"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  >
+                    <option value="">Semua Agama</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katolik">Katolik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Buddha">Buddha</option>
+                    <option value="Khonghucu">Khonghucu</option>
+                  </select>
+                </div>
+
+                <!-- Filter Jenis Kelamin -->
+                <div class="mb-4">
+                  <label
+                    for="gender-filter"
+                    class="block text-sm font-medium text-gray-700"
+                    >Jenis Kelamin</label
+                  >
+                  <select
+                    id="gender-filter"
+                    v-model="selectedJenisKelamin"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  >
+                    <option value="">Semua Jenis Kelamin</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                  </select>
+                </div>
+
+                <!-- Filter Pendidikan -->
+                <div class="mb-4">
+                  <label
+                    for="pendidikan-filter"
+                    class="block text-sm font-medium text-gray-700"
+                    >Pendidikan</label
+                  >
+                  <select
+                    id="pendidikan-filter"
+                    v-model="selectedPendidikan"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  >
+                    <option value="">Semua Pendidikan</option>
+                    <option value="TIDAK / BELUM SEKOLAH">
+                      TIDAK / BELUM SEKOLAH
+                    </option>
+                    <option value="TAMAT SD / SEDERAJAT">
+                      TAMAT SD / SEDERAJAT
+                    </option>
+                    <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
+                    <option value="SLTP/SEDERAJAT">SLTP/SEDERAJAT</option>
+                    <option value="BELUM TAMAT SD/SEDERAJAT">
+                      BELUM TAMAT SD/SEDERAJAT
+                    </option>
+                    <option value="DIPLOMA IV/ STRATA I">
+                      DIPLOMA IV/ STRATA I
+                    </option>
+                    <option value="DIPLOMA I / II">DIPLOMA I / II</option>
+                    <option value="AKADEMI/ DIPLOMA III/S. MUDA">
+                      AKADEMI/ DIPLOMA III/S. MUDA
+                    </option>
+                    <option value="STRATA II">STRATA II</option>
+                    <option value="STRATA III">STRATA III</option>
+                  </select>
+                </div>
+
+                <!-- Filter Pekerjaan -->
+                <div class="mb-4">
+                  <label
+                    for="pekerjaan-filter"
+                    class="block text-sm font-medium text-gray-700"
+                    >Pekerjaan</label
+                  >
+                  <select
+                    id="pekerjaan-filter"
+                    v-model="selectedPekerjaan"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  >
+                    <option value="">Semua Pekerjaan</option>
+                    <option value="Belum Ditentukan">Belum Ditentukan</option>
+                    <option value="Belum/Tidak Bekerja">
+                      Belum/Tidak Bekerja
+                    </option>
+                    <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
+                    <option value="Mengurus Rumah Tangga">
+                      Mengurus Rumah Tangga
+                    </option>
+                    <option value="Buruh Harian Lepas">
+                      Buruh Harian Lepas
+                    </option>
+                    <option value="Buruh Peternakan">Buruh Peternakan</option>
+                    <option value="Buruh Tani/Perkebunan">
+                      Buruh Tani/Perkebunan
+                    </option>
+                    <option value="Guru">Guru</option>
+                    <option value="Tentara Nasional Indonesia (TNI)">
+                      Tentara Nasional Indonesia (TNI)
+                    </option>
+                    <option value="Kepolisian RI (POLRI)">
+                      Kepolisian RI (POLRI)
+                    </option>
+                    <option value="Karyawan BUMD">Karyawan BUMD</option>
+                    <option value="Karyawan BUMN">Karyawan BUMN</option>
+                    <option value="Karyawan Honorer">Karyawan Honorer</option>
+                    <option value="Karyawan Swasta">Karyawan Swasta</option>
+                    <option value="Mekanik">Mekanik</option>
+                    <option value="Pedagang">Pedagang</option>
+                    <option value="Pegawai Negeri Sipil (PNS)">
+                      Pegawai Negeri Sipil (PNS)
+                    </option>
+                    <option value="Pensiunan">Pensiunan</option>
+                    <option value="Perancang Busana">Perancang Busana</option>
+                    <option value="Perawat">Perawat</option>
+                    <option value="Perdagangan">Perdagangan</option>
+                    <option value="Petani/Pekebun">Petani/Pekebun</option>
+                    <option value="Peternak">Peternak</option>
+                    <option value="Sopir">Sopir</option>
+                    <option value="Tabib">Tabib</option>
+                    <option value="Transportasi">Transportasi</option>
+                    <option value="Tukang Batu">Tukang Batu</option>
+                    <option value="Tukang Cukur">Tukang Cukur</option>
+                    <option value="Tukang Jahit">Tukang Jahit</option>
+                    <option value="Tukang Kayu">Tukang Kayu</option>
+                    <option value="Tukang Las/Pandai Besi">
+                      Tukang Las/Pandai Besi
+                    </option>
+                    <option value="Wiraswasta">Wiraswasta</option>
+                  </select>
+                </div>
+
+                <!-- Filter Status Perkawinan -->
+                <div class="mb-4">
+                  <label
+                    for="status-filter"
+                    class="block text-sm font-medium text-gray-700"
+                    >Status Perkawinan</label
+                  >
+                  <select
+                    id="status-filter"
+                    v-model="selectedStatusPerkawinan"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  >
+                    <option value="">Semua Status Perkawinan</option>
+                    <option value="Belum Kawin">Belum Kawin</option>
+                    <option value="Kawin">Kawin</option>
+                    <option value="Cerai Hidup">Cerai Hidup</option>
+                    <option value="Cerai Mati">Cerai Mati</option>
+                  </select>
+                </div>
+
+                <!-- Filter Hubungan Keluarga -->
+                <div>
+                  <label
+                    for="hubungan-filter"
+                    class="block text-sm font-medium text-gray-700"
+                    >Hubungan Keluarga</label
+                  >
+                  <select
+                    id="hubungan-filter"
+                    v-model="selectedHubunganKeluarga"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  >
+                    <option value="">Semua Hubungan Keluarga</option>
+                    <option value="Belum Ditentukan">Belum Ditentukan</option>
+                    <option value="Kepala Keluarga">Kepala Keluarga</option>
+                    <option value="Istri">Istri</option>
+                    <option value="Anak">Anak</option>
+                    <option value="Orang Tua">Orang Tua</option>
+                    <option value="Menantu">Menantu</option>
+                    <option value="Mertua">Mertua</option>
+                    <option value="Cucu">Cucu</option>
+                    <option value="Famili Lain">Famili Lain</option>
+                    <option value="Lainnya">Lainnya</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bagian Search -->
+            <form class="flex ml-auto" @submit.prevent>
+              <div class="flex">
+                <div
+                  id="dropdown"
+                  class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                ></div>
+                <div class="relative w-80">
+                  <input
+                    type="search"
+                    id="search-dropdown"
+                    v-model="searchQuery"
+                    class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                    placeholder="Cari Penduduk..."
+                    required
+                  />
+                  <button
+                    type="submit"
+                    class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                      />
+                    </svg>
+                    <span class="sr-only">Search</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div
+            class="relative p-6 bg-white shadow-lg rounded-lg border border-transparent"
+            style="
+              box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1),
+                0 4px 6px rgba(0, 0, 0, 0);
+            "
+          >
+            <div class="overflow-x-auto bg-white shadow-md rounded-lg">
               <table
                 class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400"
               >
@@ -83,23 +456,267 @@
                 >
                   <tr>
                     <th scope="col" class="px-6 py-3">No</th>
-                    <th scope="col" class="px-6 py-3">Nama</th>
+                    <th scope="col" class="px-6 py-3">
+                      <button
+                        @click="sortData('nama')"
+                        class="flex items-center uppercase"
+                      >
+                        Nama
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) => c.field === 'nama' && c.direction === 'asc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 15l7-7 7 7"
+                          />
+                        </svg>
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) =>
+                                c.field === 'nama' && c.direction === 'desc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                    </th>
                     <th scope="col" class="px-6 py-3">NIK</th>
                     <th scope="col" class="px-6 py-3">Tempat Lahir</th>
                     <th scope="col" class="px-6 py-3">Tanggal Lahir</th>
+                    <th scope="col" class="px-6 py-3">
+                      <button
+                        @click="sortData('tanggal_lahir')"
+                        class="flex items-center uppercase"
+                      >
+                        Usia
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) =>
+                                c.field === 'tanggal_lahir' &&
+                                c.direction === 'asc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 15l7-7 7 7"
+                          />
+                        </svg>
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) =>
+                                c.field === 'tanggal_lahir' &&
+                                c.direction === 'desc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                    </th>
                     <th scope="col" class="px-6 py-3">Agama</th>
-                    <th scope="col" class="px-6 py-3">Jenis Kelamin</th>
+                    <th scope="col" class="px-6 py-3">
+                      <button
+                        @click="sortData('jenis_kelamin')"
+                        class="flex items-center uppercase"
+                      >
+                        Jenis Kelamin
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) =>
+                                c.field === 'jenis_kelamin' &&
+                                c.direction === 'asc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 15l7-7 7 7"
+                          />
+                        </svg>
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) =>
+                                c.field === 'jenis_kelamin' &&
+                                c.direction === 'desc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                    </th>
                     <th scope="col" class="px-6 py-3">Pendidikan</th>
                     <th scope="col" class="px-6 py-3">Pekerjaan</th>
+                    <th scope="col" class="px-6 py-3">
+                      <button
+                        @click="sortData('nama_ayah')"
+                        class="flex items-center uppercase"
+                      >
+                        Nama Ayah
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) =>
+                                c.field === 'nama_ayah' && c.direction === 'asc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 15l7-7 7 7"
+                          />
+                        </svg>
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) =>
+                                c.field === 'nama_ayah' &&
+                                c.direction === 'desc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      <button
+                        @click="sortData('nama_ibu')"
+                        class="flex items-center uppercase"
+                      >
+                        Nama Ibu
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) =>
+                                c.field === 'nama_ibu' && c.direction === 'asc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 15l7-7 7 7"
+                          />
+                        </svg>
+                        <svg
+                          v-if="
+                            sortConditions.find(
+                              (c) =>
+                                c.field === 'nama_ibu' && c.direction === 'desc'
+                            )
+                          "
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="w-4 h-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                    </th>
                     <th scope="col" class="px-6 py-3">Status Perkawinan</th>
                     <th scope="col" class="px-6 py-3">Hubungan Keluarga</th>
-                    <th scope="col" class="px-6 py-3 flex justify-center">Aksi</th>
+                    <th scope="col" class="px-6 py-3 flex justify-center">
+                      Aksi
+                    </th>
                   </tr>
                 </thead>
 
                 <tbody>
                   <tr
-                    v-for="(anggota, index) in anggotaKeluargaList"
+                    v-for="(anggota, index) in paginatedKeluargaList"
                     :key="anggota.id"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   >
@@ -107,16 +724,21 @@
                       scope="row"
                       class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {{ index + 1 }}
+                      {{ index + 1 + (currentPage - 1) * itemsPerPage }}
                     </th>
                     <td class="px-6 py-4">{{ anggota.nama }}</td>
                     <td class="px-6 py-4">{{ anggota.nik }}</td>
                     <td class="px-6 py-4">{{ anggota.tempat_lahir }}</td>
                     <td class="px-6 py-4">{{ anggota.tanggal_lahir }}</td>
+                    <td class="px-6 py-4">
+                      {{ calculateAge(anggota.tanggal_lahir).formattedAge }}
+                    </td>
                     <td class="px-6 py-4">{{ anggota.agama }}</td>
                     <td class="px-6 py-4">{{ anggota.jenis_kelamin }}</td>
                     <td class="px-6 py-4">{{ anggota.pendidikan }}</td>
                     <td class="px-6 py-4">{{ anggota.pekerjaan }}</td>
+                    <td class="px-6 py-4">{{ anggota.nama_ayah }}</td>
+                    <td class="px-6 py-4">{{ anggota.nama_ibu }}</td>
                     <td class="px-6 py-4">{{ anggota.status_perkawinan }}</td>
                     <td class="px-6 py-4">{{ anggota.hubungan_keluarga }}</td>
                     <td class="flex justify-center items-center">
@@ -163,7 +785,64 @@
                 </tbody>
               </table>
             </div>
+
+           <!-- Pagination Component -->
+      <div class="flex flex-col lg:flex-row justify-between mt-4">
+        <div class="flex flex-col lg:flex-row items-center space-x-2 text-xs">
+          <button
+            class="py-2 px-4 bg-white text-gray-600 font-medium rounded hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center"
+          >
+            {{ itemsPerPage }} items
+          </button>
+          <p class="text-gray-500 mt-4 lg:mt-0">
+            Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+            {{ Math.min(currentPage * itemsPerPage, filteredAnggotaKeluarga.length) }}
+            of {{ filteredAnggotaKeluarga.length }} entries
+          </p>
+        </div>
+
+        <!-- Pagination Navigation -->
+        <nav aria-label="Pagination" class="flex justify-center items-center text-gray-600 mt-8 lg:mt-0">
+          <a
+            href="#"
+            @click.prevent="changePage(currentPage - 1)"
+            :class="{ 'pointer-events-none opacity-50': currentPage === 1 }"
+            class="p-2 mr-4 rounded hover:bg-gray-100"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span
+            v-for="page in totalPages"
+            :key="page"
+            @click.prevent="changePage(page)"
+            class="px-4 py-2 rounded cursor-pointer hover:bg-gray-100"
+            :class="{
+              'bg-gray-200 font-medium text-gray-900': page === currentPage,
+            }"
+          >
+            {{ page }}
+          </span>
+
+          <a
+            href="#"
+            @click.prevent="changePage(currentPage + 1)"
+            :class="{ 'pointer-events-none opacity-50': currentPage === totalPages }"
+            class="p-2 ml-4 rounded hover:bg-gray-100"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    
         
+      
+            
+          </div>
+        </div>
 
         <!-- Edit Modal -->
         <div
@@ -253,8 +932,8 @@
                 Hapus Anggota Keluarga
               </h4>
               <p class="text-sm text-gray-600 mt-4">
-                Apakah anda yakin menghapus anggota keluarga ini? Data yang dihapus
-                akan hilang.
+                Apakah anda yakin menghapus anggota keluarga ini? Data yang
+                dihapus akan hilang.
               </p>
             </div>
             <div class="flex flex-col space-y-2">
@@ -275,7 +954,6 @@
             </div>
           </div>
         </div>
-        <FooterAdmin />
       </div>
     </div>
   </div>
@@ -299,8 +977,93 @@ export default {
   },
   setup() {
     const anggotaKeluargaList = ref([]);
+    const searchQuery = ref("");
+    const sortConditions = ref([]);
+    const sortField = ref("");
+    const sortDirection = ref("default");
     const isEditModalOpen = ref(false);
     const isDeleteModalOpen = ref(false);
+
+    const currentPage = ref(1); // Current page number
+    const itemsPerPage = ref(10); // Number of items per page
+
+    // State untuk filter
+    const selectedUsiaRange = ref("");
+    const selectedAgama = ref("");
+    const selectedJenisKelamin = ref("");
+    const selectedPendidikan = ref("");
+    const selectedPekerjaan = ref("");
+    const selectedStatusPerkawinan = ref("");
+    const selectedHubunganKeluarga = ref("");
+    const isDropdownOpen = ref(false);
+
+    // Fungsi sortir
+    const sortData = (field) => {
+      const existingCondition = sortConditions.value.find(
+        (condition) => condition.field === field
+      );
+
+      if (existingCondition) {
+        // Toggle direction
+        if (existingCondition.direction === "asc") {
+          existingCondition.direction = "desc";
+        } else if (existingCondition.direction === "desc") {
+          sortConditions.value = sortConditions.value.filter(
+            (condition) => condition.field !== field
+          );
+        } else {
+          existingCondition.direction = "asc";
+        }
+      } else {
+        // Tambahkan kondisi sortir baru
+        sortConditions.value.push({ field, direction: "asc" });
+      }
+
+      applySorting();
+    };
+
+    const applySorting = () => {
+      anggotaKeluargaList.value.sort((a, b) => {
+        for (let condition of sortConditions.value) {
+          const field = condition.field;
+          const direction = condition.direction;
+
+          let valA = a[field].toString().toLowerCase();
+          let valB = b[field].toString().toLowerCase();
+
+          if (valA < valB) {
+            return direction === "asc" ? -1 : 1;
+          } else if (valA > valB) {
+            return direction === "asc" ? 1 : -1;
+          }
+        }
+        return 0;
+      });
+    };
+
+    // Hitung jumlah halaman
+    const totalPages = computed(() => {
+      return Math.ceil(filteredAnggotaKeluarga.value.length / itemsPerPage.value);
+    });
+
+    // Method untuk mengubah halaman
+    const changePage = (page) => {
+      if (page >= 1 && page <= totalPages.value) {
+        currentPage.value = page;
+      }
+    };
+
+    // Method untuk menampilkan data berdasarkan halaman saat ini
+    const paginatedKeluargaList = computed(() => {
+      const start = (currentPage.value - 1) * itemsPerPage.value;
+      const end = start + itemsPerPage.value;
+      return filteredAnggotaKeluarga.value.slice(start, end);
+    });
+
+    const toggleDropdown = () => {
+      isDropdownOpen.value = !isDropdownOpen.value;
+    };
+
     const editForm = reactive({
       id: "",
       nama: "",
@@ -311,6 +1074,8 @@ export default {
       jenis_kelamin: "",
       pendidikan: "",
       pekerjaan: "",
+      nama_ayah: "",
+      nama_ibu: "",
       status_perkawinan: "",
       hubungan_keluarga: "",
     });
@@ -321,6 +1086,42 @@ export default {
       show: false,
     });
 
+    // Hitung jumlah kepala keluarga
+    const jumlahKepalaKeluarga = computed(() => {
+      return anggotaKeluargaList.value.filter(
+        (anggota) => anggota.hubungan_keluarga === "Kepala Keluarga"
+      ).length;
+    });
+
+    // Hitung jumlah penduduk
+    const jumlahPenduduk = computed(() => {
+      return anggotaKeluargaList.value.length;
+    });
+
+    // Hitung jumlah laki-laki
+    const jumlahLakiLaki = computed(() => {
+      return anggotaKeluargaList.value.filter(
+        (anggota) => anggota.jenis_kelamin === "Laki-laki"
+      ).length;
+    });
+
+    // Hitung jumlah perempuan
+    const jumlahPerempuan = computed(() => {
+      return anggotaKeluargaList.value.filter(
+        (anggota) => anggota.jenis_kelamin === "Perempuan"
+      ).length;
+    });
+
+    const clearFilter = () => {
+      selectedUsiaRange.value = "";
+      selectedAgama.value = "";
+      selectedJenisKelamin.value = "";
+      selectedPendidikan.value = "";
+      selectedPekerjaan.value = "";
+      selectedStatusPerkawinan.value = "";
+      selectedHubunganKeluarga.value = "";
+    };
+
     const showNotification = (message) => {
       notification.message = message;
       notification.show = true;
@@ -329,9 +1130,49 @@ export default {
       }, 3000);
     };
 
+    const calculateAge = (tanggal_lahir) => {
+      if (!tanggal_lahir) return null;
+
+      const birthDate = new Date(tanggal_lahir);
+      const today = new Date();
+
+      // Hitung perbedaan dalam tahun, bulan, dan hari
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+      let days = today.getDate() - birthDate.getDate();
+
+      // Jika bulan kurang dari 0, kurangi satu tahun dan hitung ulang bulan
+      if (months < 0 || (months === 0 && days < 0)) {
+        years--;
+        months += 12;
+      }
+
+      // Jika hari kurang dari 0, kurangi satu bulan dan hitung ulang hari
+      if (days < 0) {
+        const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += lastMonth.getDate();
+        months--;
+      }
+
+      // Format hasil untuk tampilan
+      let formattedAge;
+      if (years > 0) {
+        formattedAge = `${years} tahun`;
+      } else if (months > 0) {
+        formattedAge = `${months} bulan`;
+      } else {
+        formattedAge = `${days} hari`;
+      }
+
+      // Kembalikan tahun dan format usia untuk tampilan
+      return { years, months, days, formattedAge };
+    };
+
     const fetchAnggotaKeluarga = async () => {
       try {
-        const response = await fetch("https://www.demo-ta.my.id/api/anggota_keluargas");
+        const response = await fetch(
+          "http://laravel-api.test/api/anggota_keluargas"
+        );
         const data = await response.json();
         if (Array.isArray(data)) {
           anggotaKeluargaList.value = data;
@@ -368,7 +1209,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://www.demo-ta.my.id/api/anggota_keluargas/${editForm.id}`,
+          `http://laravel-api.test/api/anggota_keluargas/${editForm.id}`,
           {
             method: "PUT",
             headers: {
@@ -415,7 +1256,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://www.demo-ta.my.id/api/anggota_keluargas/${editForm.id}`,
+          `http://laravel-api.test/api/anggota_keluargas/${editForm.id}`,
           {
             method: "DELETE",
             headers: {
@@ -441,8 +1282,96 @@ export default {
       }
     };
 
+    // Computed property for filtered anggota keluarga list
+    const filteredAnggotaKeluarga = computed(() => {
+      return anggotaKeluargaList.value.filter((anggota) => {
+        const age = calculateAge(anggota.tanggal_lahir); // Menghasilkan { years, formattedAge }
+
+        // Filter berdasarkan usia
+        let usiaMatch = true;
+        if (selectedUsiaRange.value === "child") {
+          usiaMatch = age.years <= 12; // Gunakan age.years untuk filter
+        } else if (selectedUsiaRange.value === "teenager") {
+          usiaMatch = age.years >= 13 && age.years <= 19;
+        } else if (selectedUsiaRange.value === "adult") {
+          usiaMatch = age.years >= 20 && age.years <= 59;
+        } else if (selectedUsiaRange.value === "elderly") {
+          usiaMatch = age.years >= 60;
+        }
+
+        // Filter berdasarkan agama
+        const agamaMatch =
+          selectedAgama.value === "" || anggota.agama === selectedAgama.value;
+
+        // Filter berdasarkan jenis kelamin
+        const jenisKelaminMatch =
+          selectedJenisKelamin.value === "" ||
+          anggota.jenis_kelamin === selectedJenisKelamin.value;
+
+        // Filter berdasarkan pendidikan
+        const pendidikanMatch =
+          selectedPendidikan.value === "" ||
+          anggota.pendidikan === selectedPendidikan.value;
+
+        // Filter berdasarkan pekerjaan
+        const pekerjaanMatch =
+          selectedPekerjaan.value === "" ||
+          anggota.pekerjaan === selectedPekerjaan.value;
+
+        // Filter berdasarkan status perkawinan
+        const statusPerkawinanMatch =
+          selectedStatusPerkawinan.value === "" ||
+          anggota.status_perkawinan === selectedStatusPerkawinan.value;
+
+        // Filter berdasarkan hubungan keluarga
+        const hubunganKeluargaMatch =
+          selectedHubunganKeluarga.value === "" ||
+          anggota.hubungan_keluarga === selectedHubunganKeluarga.value;
+
+        // Filter berdasarkan search query (pencarian)
+        const searchMatch =
+          searchQuery.value === "" ||
+          anggota.nama
+            .toLowerCase()
+            .includes(searchQuery.value.toLowerCase()) ||
+          anggota.nik.toLowerCase().includes(searchQuery.value.toLowerCase());
+
+        // Return true jika semua filter dan search match
+        return (
+          usiaMatch &&
+          agamaMatch &&
+          jenisKelaminMatch &&
+          pendidikanMatch &&
+          pekerjaanMatch &&
+          statusPerkawinanMatch &&
+          hubunganKeluargaMatch &&
+          searchMatch // Tambahkan pencarian di sini
+        );
+      });
+    });
+
     return {
       anggotaKeluargaList,
+      searchQuery,
+      sortField,
+      sortDirection,
+      sortData,
+      sortConditions,
+      filteredAnggotaKeluarga,
+
+      currentPage,
+      itemsPerPage,
+      totalPages,
+      paginatedKeluargaList,
+
+      // State untuk filter
+      selectedUsiaRange,
+      selectedAgama,
+      selectedJenisKelamin,
+      selectedPendidikan,
+      selectedPekerjaan,
+      selectedStatusPerkawinan,
+      selectedHubunganKeluarga,
       isEditModalOpen,
       isDeleteModalOpen,
       editForm,
@@ -453,11 +1382,26 @@ export default {
       confirmDeleteAnggota,
       editAnggotaKeluarga,
       deleteAnggotaKeluarga,
+      calculateAge,
+      isDropdownOpen,
+      toggleDropdown,
+      clearFilter,
+      jumlahKepalaKeluarga,
+      jumlahPenduduk,
+      jumlahLakiLaki,
+      jumlahPerempuan,
+      changePage,
     };
   },
 };
 </script>
 
 <style scoped>
-/* Tambahkan gaya khusus jika diperlukan */
+.custom-bg-main {
+  background-color: #f9fafb;
+}
+
+.custom-header {
+  background-color: #adc4ce;
+}
 </style>

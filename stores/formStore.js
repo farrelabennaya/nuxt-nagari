@@ -2,20 +2,25 @@ import { defineStore } from 'pinia';
 
 export const useFormStore = defineStore('formStore', {
   state: () => ({
-    anggotaKeluargaForms: []
+    keluargaForm: null,
+    kepalaKeluargaForms: [],
   }),
   actions: {
-    addAnggota(anggota) {
-      this.anggotaKeluargaForms.push(anggota);
+    updateKeluargaForm(data) {
+      this.keluargaForm = data;
     },
-    updateAnggota(index, anggota) {
-      this.anggotaKeluargaForms[index] = anggota;
+    addKepalaKeluargaForm(data) {
+      this.kepalaKeluargaForms.push(data);
     },
-    clearForms() {
-      this.anggotaKeluargaForms = [];
+    getKeluargaForm() {
+      return this.keluargaForm;
     },
-    resetForms() {
-      this.anggotaKeluargaForms = [];
+    getKepalaKeluargaForms() {
+      return this.kepalaKeluargaForms;
+    },
+    clearAllForms() {
+      this.keluargaForm = null;
+      this.kepalaKeluargaForms = [];
     }
   }
 });

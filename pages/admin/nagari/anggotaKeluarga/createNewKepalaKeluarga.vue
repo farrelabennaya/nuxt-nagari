@@ -7,45 +7,74 @@
         id="main-content"
         class="h-full w-full bg-gray-50 relative overflow-y-auto sm:ml-64"
       >
-        <main>
-          <div class="pt-6 px-4 ml-5 mr-5">
-            <h1 class="text-lg font-bold mb-4">Create Kepala Keluarga</h1>
-          </div>
-        </main>
-        <div class="min-h-screen flex">
-          <div class="w-full">
+        <div class="custom-header to-gray-100 p-6 pb-32 pt-5">
+          <main>
             <div
-              class="card bg-white p-10 rounded-lg shadow-md md:w-3/5 mx-auto lg:w-1/3"
+              class="bg-white rounded-lg shadow-sm p-6 flex justify-between items-center relative overflow-x-auto ml-5 mr-5 mt-5 mb-5"
             >
-              <h3 class="text-center text-2xl font-semibold">
-                Form Data Kepala Keluarga {{ currentFormIndex + 1 }}
-              </h3>
-              <form
-                @submit.prevent="handleFormSubmit(currentFormIndex)"
-                class="max-w-sm mx-auto"
+              <div>
+                <h2 class="text-xl font-bold text-gray-800">Kepala Keluarga</h2>
+                <p class="text-gray-500">Tambah Kepala Keluarga</p>
+              </div>
+            </div>
+          </main>
+        </div>
+        <form
+          @submit.prevent="handleFormSubmit(currentFormIndex)"
+          class="grid grid-cols-1 xl:grid-cols-1 gap-4 px-11 pt-6 dark:bg-gray-900 -mt-20"
+        >
+          <!-- Column 1: Jumlah KK and Alamat -->
+          <div
+            class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+          >
+            <h3 class="mb-4 text-xl font-semibold dark:text-white">No KK</h3>
+            <div>
+              <label
+                for="no_kk"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Nomor KK</label
               >
-                <!-- <div class="mb-5">
-                    <label for="keluarga_id" class="block text-sm font-medium text-gray-700">Keluarga ID</label>
-                    <input
-                      id="keluarga_id"
-                      type="text"
-                      v-model="forms[currentFormIndex].keluarga_id"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      readonly
-                    />
-                    <span v-if="errors[currentFormIndex] && errors[currentFormIndex].keluarga_id" class="text-red-500">{{ errors[currentFormIndex].keluarga_id[0] }}</span>
-                  </div> -->
-                <div class="mb-5 mt-5">
+              <input
+                id="no_kk"
+                v-model="forms[currentFormIndex].no_kk"
+                type="text"
+                maxlength="16"
+                @input="validateKk"
+                placeholder="No KK (16 Digit)"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              />
+              <span
+                v-if="
+                  errors[currentFormIndex] && errors[currentFormIndex].no_kk
+                "
+                class="text-red-500"
+              >
+                {{ errors[currentFormIndex].no_kk[0] }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Column 2: Buat Kepala Keluarga -->
+          <div class="">
+            <div
+              class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+            >
+              <h3 class="mb-4 text-xl font-semibold dark:text-white">
+                Buat Kepala Keluarga
+              </h3>
+              <div class="grid grid-cols-2 gap-6">
+                <div>
                   <label
                     for="nama"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Nama</label
                   >
                   <input
                     id="nama"
                     v-model="forms[currentFormIndex].nama"
                     type="text"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
+                    placeholder="Nama Kepala Keluarga"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   />
                   <span
                     v-if="
@@ -55,17 +84,21 @@
                     >{{ errors[currentFormIndex].nama[0] }}</span
                   >
                 </div>
-                <div class="mb-5">
+
+                <div>
                   <label
                     for="nik"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >NIK</label
                   >
                   <input
                     id="nik"
                     v-model="forms[currentFormIndex].nik"
                     type="text"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
+                    maxlength="16"
+                    @input="validateNik"
+                    placeholder="NIK (16 Digit)"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   />
                   <span
                     v-if="
@@ -75,17 +108,19 @@
                     >{{ errors[currentFormIndex].nik[0] }}</span
                   >
                 </div>
-                <div class="mb-5">
+
+                <div>
                   <label
                     for="tempat_lahir"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Tempat Lahir</label
                   >
                   <input
                     id="tempat_lahir"
                     v-model="forms[currentFormIndex].tempat_lahir"
                     type="text"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
+                    placeholder="Tempat Lahir"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   />
                   <span
                     v-if="
@@ -96,17 +131,18 @@
                     >{{ errors[currentFormIndex].tempat_lahir[0] }}</span
                   >
                 </div>
-                <div class="mb-5">
+
+                <div>
                   <label
                     for="tanggal_lahir"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Tanggal Lahir</label
                   >
                   <input
                     id="tanggal_lahir"
                     v-model="forms[currentFormIndex].tanggal_lahir"
                     type="date"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   />
                   <span
                     v-if="
@@ -117,16 +153,17 @@
                     >{{ errors[currentFormIndex].tanggal_lahir[0] }}</span
                   >
                 </div>
-                <div class="mb-5">
+
+                <div>
                   <label
                     for="agama"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Agama</label
                   >
                   <select
                     id="agama"
                     v-model="forms[currentFormIndex].agama"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
                     <option disabled value="">Pilih Agama</option>
                     <option
@@ -145,16 +182,17 @@
                     >{{ errors[currentFormIndex].agama[0] }}</span
                   >
                 </div>
-                <div class="mb-5">
+
+                <div>
                   <label
                     for="jenis_kelamin"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Jenis Kelamin</label
                   >
                   <select
                     id="jenis_kelamin"
                     v-model="forms[currentFormIndex].jenis_kelamin"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
                     <option disabled value="">Pilih Jenis Kelamin</option>
                     <option
@@ -174,16 +212,17 @@
                     >{{ errors[currentFormIndex].jenis_kelamin[0] }}</span
                   >
                 </div>
-                <div class="mb-5">
+
+                <div>
                   <label
                     for="pendidikan"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Pendidikan</label
                   >
                   <select
                     id="pendidikan"
                     v-model="forms[currentFormIndex].pendidikan"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
                     <option disabled value="">Pilih Pendidikan</option>
                     <option
@@ -203,16 +242,17 @@
                     >{{ errors[currentFormIndex].pendidikan[0] }}</span
                   >
                 </div>
-                <div class="mb-5">
+
+                <div>
                   <label
                     for="pekerjaan"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Pekerjaan</label
                   >
                   <select
                     id="pekerjaan"
                     v-model="forms[currentFormIndex].pekerjaan"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
                     <option disabled value="">Pilih Pekerjaan</option>
                     <option
@@ -232,16 +272,63 @@
                     >{{ errors[currentFormIndex].pekerjaan[0] }}</span
                   >
                 </div>
-                <div class="mb-5">
+
+                <div>
+                  <label
+                    for="nama_ayah"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >Nama Ayah</label
+                  >
+                  <input
+                    id="nama_ayah"
+                    type="text"
+                    placeholder="Nama Ayah"
+                    v-model="forms[currentFormIndex].nama_ayah"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  />
+                  <span
+                    v-if="
+                      errors[currentFormIndex] &&
+                      errors[currentFormIndex].nama_ayah
+                    "
+                    class="text-red-500"
+                    >{{ errors[currentFormIndex].nama_ayah[0] }}</span
+                  >
+                </div>
+
+                <div>
+                  <label
+                    for="nama_ibu"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >Nama Ibu</label
+                  >
+                  <input
+                    id="nama_ibu"
+                    type="text"
+                    placeholder="Nama Ibu"
+                    v-model="forms[currentFormIndex].nama_ibu"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  />
+                  <span
+                    v-if="
+                      errors[currentFormIndex] &&
+                      errors[currentFormIndex].nama_ibu
+                    "
+                    class="text-red-500"
+                    >{{ errors[currentFormIndex].nama_ibu[0] }}</span
+                  >
+                </div>
+
+                <div>
                   <label
                     for="status_perkawinan"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Status Perkawinan</label
                   >
                   <select
                     id="status_perkawinan"
                     v-model="forms[currentFormIndex].status_perkawinan"
-                    class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 mt-2"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
                     <option disabled value="">Pilih Status Perkawinan</option>
                     <option
@@ -261,61 +348,28 @@
                     >{{ errors[currentFormIndex].status_perkawinan[0] }}</span
                   >
                 </div>
-                <div class="flex justify-between">
-                  <button
-                    v-if="currentFormIndex > 0"
-                    type="button"
-                    @click="previousForm"
-                    class="text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                  >
-                    Kembali
-                  </button>
-                  <button
-                    v-if="currentFormIndex < forms.length - 1"
-                    type="button"
-                    @click="nextForm"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
-                  >
-                    Selanjutnya
-                  </button>
-                  <button
-                    v-if="currentFormIndex === forms.length - 1"
-                    type="button"
-                    @click="openConfirmationModal"
-                    class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
-                  >
-                    Konfirmasi
-                  </button>
-                </div>
-              </form>
+              </div>
+
+              <div class="mt-6">
+                <button
+                  type="button"
+                  @click="cancelCreate"
+                  class="mr-2 bg-gray-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                >
+                  Batal
+                </button>
+                <button
+                  v-if="currentFormIndex === forms.length - 1"
+                  type="submit"
+                  @click="submitAllData"
+                  class="bg-blue-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                >
+                  Simpan
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="showModal"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
-    >
-      <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-semibold mb-4">
-          Apakah Anda Yakin Untuk Melakukan Konfirmasi?
-        </h2>
-        <p class="mb-4">Pastikan Semua Data Benar</p>
-        <div class="flex justify-end">
-          <button
-            @click="closeModal"
-            class="text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-          >
-            Batal
-          </button>
-          <button
-            @click="submitAllData"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
-          >
-            Konfirmasi
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -339,6 +393,7 @@ const jumlahKk = parseInt(route.query.jumlah_kk, 10) || 1;
 const forms = reactive(
   Array.from({ length: jumlahKk }, () => ({
     keluarga_id: route.query.keluarga_id || "",
+    no_kk: "",
     nama: "",
     nik: "",
     tempat_lahir: "",
@@ -347,6 +402,8 @@ const forms = reactive(
     jenis_kelamin: "",
     pendidikan: "",
     pekerjaan: "",
+    nama_ayah: "",
+    nama_ibu: "",
     status_perkawinan: "",
     hubungan_keluarga: "Kepala Keluarga",
   }))
@@ -436,7 +493,7 @@ const checkNIKExists = async (nik) => {
 
   try {
     const response = await fetch(
-      `https://www.demo-ta.my.id/api/check-nik?nik=${nik}`,
+      `http://laravel-api.test/api/check-nik?nik=${nik}`,
       {
         method: "GET",
         headers: {
@@ -463,24 +520,80 @@ const closeModal = () => {
   showModal.value = false;
 };
 
+//validasi KK
+//validasi KK
+const validateKk = (e) => {
+  let input = e.target.value;
+  input = input.replace(/\D/g, ""); // Hanya angka yang diizinkan
+  forms[currentFormIndex.value].no_kk = input;
+
+  if (!input) {
+    errors[currentFormIndex.value].no_kk = ["KK wajib diisi."];
+  } else if (input.length < 16) {
+    errors[currentFormIndex.value].no_kk = ["KK harus terdiri dari 16 digit"];
+  } else {
+    errors[currentFormIndex.value].no_kk = null; // Validasi berhasil
+  }
+};
+
+
+// Validasi NIK
+const validateNik = (e) => {
+  let input = e.target.value;
+  input = input.replace(/\D/g, ""); // Hanya angka yang diizinkan
+  forms[currentFormIndex.value].nik = input;
+
+  if (!input) {
+    errors[currentFormIndex.value].nik = ["NIK wajib diisi."];
+  } else if (input.length < 16) {
+    errors[currentFormIndex.value].nik = ["NIK harus terdiri dari 16 digit"];
+  } else {
+    errors[currentFormIndex.value].nik = null; // Validasi berhasil
+  }
+};
+
+const cancelCreate = () => {
+  router.push({
+    path: "/admin/nagari/keluarga/keluargaDetail",
+    query: { id: forms[0].keluarga_id },
+  });
+};
+
 const submitAllData = async () => {
   isLoading.value = true;
 
   try {
+    if (!forms[0].no_kk || forms[0].no_kk.length < 16) {
+      errors[0].no_kk = !forms[0].no_kk
+        ? ["KK wajib diisi."]
+        : ["KK harus terdiri dari 16 digit"];
+      isLoading.value = false;
+      return;
+    }
+
     console.log("Submitting data:", forms[0]);
 
-    // Periksa apakah NIK sudah ada
-    if (await checkNIKExists(forms[0].nik)) {
-      showNotification(`NIK ${forms[0].nik} sudah ada`);
-      errors[0].nik = ["NIK sudah ada"];
-      return;
+    // // Periksa apakah NIK sudah ada
+    // if (await checkNIKExists(forms[0].nik)) {
+    //   showNotification(`NIK ${forms[0].nik} sudah ada`);
+    //   errors[0].nik = ["NIK sudah ada"];
+    //   return;
+    // }
+
+       // Periksa apakah NIK sudah ada
+       if (!forms[0].nik || forms[0].nik.length < 16) {
+      errors[0].nik = !forms[0].nik
+        ? ["NIK wajib diisi."]
+        : ["NIK harus terdiri dari 16 digit"];
+      isLoading.value = false;
+      return; // Hentikan proses jika NIK tidak valid
     }
 
     const token = auth.getToken;
 
     // Buat Kepala Keluarga (tabel anggota_keluargas)
     const response = await fetch(
-      "https://www.demo-ta.my.id/api/anggota_keluargas",
+      "http://laravel-api.test/api/anggota_keluargas",
       {
         method: "POST",
         headers: {
@@ -497,15 +610,15 @@ const submitAllData = async () => {
       if (data.errors) {
         errors[0] = data.errors;
       } else {
-        throw new Error(data.message || `Gagal menambahkan Kepala Keluarga`);
+        throw new Error(data.message || "Gagal menambahkan Kepala Keluarga");
       }
     } else {
       const kepalaKeluargaId = data.id; // Dapatkan ID Kepala Keluarga yang baru dibuat
       console.log("Kepala Keluarga ID:", kepalaKeluargaId);
 
-      // Perbarui kolom `kepala_keluarga_id` di tabel `keluargas`
+      // Perbarui kolom kepala_keluarga_id di tabel keluargas
       await fetch(
-        `https://www.demo-ta.my.id/api/keluargas/${forms[0].keluarga_id}`,
+        `http://laravel-api.test/api/keluargas/${forms[0].keluarga_id}`,
         {
           method: "PUT",
           headers: {
@@ -517,32 +630,50 @@ const submitAllData = async () => {
         }
       );
 
-      // Perbarui atau buat entri di tabel `anggota_keluargas` untuk kepala keluarga
-      await fetch(
-        `https://www.demo-ta.my.id/api/anggota_keluargas/${kepalaKeluargaId}`,
+      // Simpan no_kk ke tabel kartu_keluarga
+      const responseKK = await fetch(
+        "http://laravel-api.test/api/kartu_keluargas",
         {
-          method: "PUT", // Atau POST jika perlu dibuat baru
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ kepala_keluarga_id: kepalaKeluargaId }),
+          body: JSON.stringify({
+            no_kk: forms[0].no_kk,
+            keluarga_id: forms[0].keluarga_id,
+            kepala_keluarga_id: kepalaKeluargaId,
+          }),
         }
       );
-    }
 
-    showNotification(
-      "Kepala Keluarga dan Anggota Keluarga berhasil ditambahkan!"
-    );
-    setTimeout(() => {
-      router.push({
-        path: "/admin/nagari/keluarga/keluargaDetail",
-        query: { id: forms[0].keluarga_id },
-      });
-    }, 1500);
+      const dataKK = await responseKK.json();
+      if (!responseKK.ok) {
+        if (dataKK.errors) {
+          errors[0] = dataKK.errors;
+        } else {
+          throw new Error(dataKK.message || "Gagal menambahkan No KK");
+        }
+      } else {
+        console.log("Kartu Keluarga berhasil dibuat dengan ID:", dataKK.id);
+        showNotification(
+          "Kepala Keluarga dan Kartu Keluarga berhasil ditambahkan!"
+        );
+
+        setTimeout(() => {
+          router.push({
+            path: "/admin/nagari/keluarga/keluargaDetail",
+            query: { id: forms[0].keluarga_id },
+          });
+        }, 1500);
+      }
+    }
   } catch (error) {
     console.error("Request failed:", error);
+    showNotification(
+      "Terjadi kesalahan saat menyimpan data, silakan coba lagi."
+    );
   } finally {
     isLoading.value = false;
   }
@@ -569,5 +700,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Tambahkan gaya CSS khusus di sini */
+.custom-bg-main {
+  background-color: #f9fafb;
+}
+
+.custom-header {
+  background-color: #adc4ce;
+}
 </style>

@@ -39,8 +39,8 @@ const handleSubmit = async () => {
               class="h-36 mx-auto block"
               alt="FlowBite Logo"
             />
-      <h3 class="text-center text-2xl font-semibold">DIGITAL SERVICE <br> NAGARI LUBUK MALAKO</h3>
-      <p class="text-center text-sm">Mewujudkan digitalisasi dan moderenisasi</p><br>
+      <h3 class="text-center text-2xl font-semibold">KEPENDUDUKAN DIGITAL <br> NAGARI LUBUK MALAKO</h3>
+      <p class="text-center text-sm">Mempermudah Akses dan Pengelolaan Data Penduduk secara Digital</p><br>
         <!-- <h5 class="text-center text-2xl font-semibold">User Login</h5> -->
 
         <form @submit.prevent="handleSubmit" class="max-w-sm mx-auto">

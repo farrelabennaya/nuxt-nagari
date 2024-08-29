@@ -14,39 +14,42 @@
             >
               <div>
                 <h2 class="text-xl font-bold text-gray-800">
-                  Anggota Keluarga
+                  Edit Anggota Keluarga
                 </h2>
-                <p class="text-gray-500">Tambah Anggota Keluarga</p>
+                <p class="text-gray-500">
+                  Perbarui informasi anggota keluarga.
+                </p>
               </div>
             </div>
           </main>
         </div>
+
         <form
-          @submit.prevent="createAnggotaKeluarga"
+          @submit.prevent="updateAnggota"
           class="grid grid-cols-1 xl:grid-cols-1 gap-4 px-11 pt-6 dark:bg-gray-900 -mt-20"
-         >
+        >
           <!-- Column 1: Jumlah KK and Alamat -->
 
           <!-- Column 2: Buat Kepala Keluarga -->
           <div class="">
             <div
               class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800"
-             >
+            >
               <h3 class="mb-4 text-xl font-semibold dark:text-white">
-                Buat Anggota Keluarga
+                Edit Anggota Keluarga
               </h3>
               <div class="grid grid-cols-2 gap-6">
                 <div>
                   <label
                     for="nama"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Nama</label
                   >
+                    Nama
+                  </label>
                   <input
+                    type="text"
                     id="nama"
                     v-model="form.nama"
-                    type="text"
-                    placeholder="Nama"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   />
                   <span v-if="errors.nama" class="text-red-500">
@@ -58,15 +61,15 @@
                   <label
                     for="nik"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >NIK</label
                   >
+                    NIK
+                  </label>
                   <input
-                    id="nik"
-                    v-model="form.nik"
                     type="text"
+                    id="nik"
                     maxlength="16"
                     @input="validateNik"
-                    placeholder="NIK (16 Digit)"
+                    v-model="form.nik"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   />
                   <span v-if="errors.nik" class="text-red-500">
@@ -78,13 +81,13 @@
                   <label
                     for="tempat_lahir"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Tempat Lahir</label
                   >
+                    Tempat Lahir
+                  </label>
                   <input
+                    type="text"
                     id="tempat_lahir"
                     v-model="form.tempat_lahir"
-                    type="text"
-                    placeholder="Tempat Lahir"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   />
                   <span v-if="errors.tempat_lahir" class="text-red-500">
@@ -96,12 +99,13 @@
                   <label
                     for="tanggal_lahir"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Tanggal Lahir</label
                   >
+                    Tanggal Lahir
+                  </label>
                   <input
+                    type="date"
                     id="tanggal_lahir"
                     v-model="form.tanggal_lahir"
-                    type="date"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   />
                   <span v-if="errors.tanggal_lahir" class="text-red-500">
@@ -113,14 +117,14 @@
                   <label
                     for="agama"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Agama</label
                   >
+                    Agama
+                  </label>
                   <select
                     id="agama"
                     v-model="form.agama"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
-                    <option disabled value="">Pilih Agama</option>
                     <option
                       v-for="agama in agamaOptions"
                       :key="agama"
@@ -138,21 +142,16 @@
                   <label
                     for="jenis_kelamin"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Jenis Kelamin</label
                   >
+                    Jenis Kelamin
+                  </label>
                   <select
                     id="jenis_kelamin"
                     v-model="form.jenis_kelamin"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
-                    <option disabled value="">Pilih Jenis Kelamin</option>
-                    <option
-                      v-for="jenis in jenisKelaminOptions"
-                      :key="jenis"
-                      :value="jenis"
-                    >
-                      {{ jenis }}
-                    </option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
                   </select>
                   <span v-if="errors.jenis_kelamin" class="text-red-500">
                     {{ errors.jenis_kelamin[0] }}
@@ -163,14 +162,14 @@
                   <label
                     for="pendidikan"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Pendidikan</label
                   >
+                    Pendidikan
+                  </label>
                   <select
                     id="pendidikan"
                     v-model="form.pendidikan"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
-                    <option disabled value="">Pilih Pendidikan</option>
                     <option
                       v-for="pendidikan in pendidikanOptions"
                       :key="pendidikan"
@@ -188,14 +187,14 @@
                   <label
                     for="pekerjaan"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Pekerjaan</label
                   >
+                    Pekerjaan
+                  </label>
                   <select
                     id="pekerjaan"
                     v-model="form.pekerjaan"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
-                    <option disabled value="">Pilih Pekerjaan</option>
                     <option
                       v-for="pekerjaan in pekerjaanOptions"
                       :key="pekerjaan"
@@ -253,20 +252,20 @@
                   <label
                     for="status_perkawinan"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Status Perkawinan</label
                   >
+                    Status Perkawinan
+                  </label>
                   <select
                     id="status_perkawinan"
                     v-model="form.status_perkawinan"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
-                    <option disabled value="">Pilih Status Perkawinan</option>
                     <option
-                      v-for="status in statusPerkawinanOptions"
-                      :key="status"
-                      :value="status"
+                      v-for="status_perkawinan in statusPerkawinanOptions"
+                      :key="status_perkawinan"
+                      :value="status_perkawinan"
                     >
-                      {{ status }}
+                      {{ status_perkawinan }}
                     </option>
                   </select>
                   <span v-if="errors.status_perkawinan" class="text-red-500">
@@ -276,22 +275,22 @@
 
                 <div>
                   <label
-                    for="status_perkawinan"
+                    for="hubungan_keluarga"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Hubungan Keluarga</label
                   >
+                    Hubungan Keluarga
+                  </label>
                   <select
                     id="hubungan_keluarga"
                     v-model="form.hubungan_keluarga"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
-                    <option disabled value="">Pilih Hubungan Keluarga</option>
                     <option
-                      v-for="hubungan in hubunganKeluargaOptions"
-                      :key="hubungan"
-                      :value="hubungan"
+                      v-for="hubungan_keluarga in hubunganKeluargaOptions"
+                      :key="hubungan_keluarga"
+                      :value="hubungan_keluarga"
                     >
-                      {{ hubungan }}
+                      {{ hubungan_keluarga }}
                     </option>
                   </select>
                   <span v-if="errors.hubungan_keluarga" class="text-red-500">
@@ -302,32 +301,86 @@
 
               <div class="mt-6">
                 <button
-                  type="button"
-                  @click="cancelCreate"
-                  class="mr-2 bg-gray-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                  type="submit"
+                  class="bg-blue-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-blue-600"
                 >
-                  Batal
+                  Simpan Perubahan
                 </button>
                 <button
-                  type="submit"
-                  class="bg-blue-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  type="button"
+                  @click="cancelEdit"
+                  class="ml-2 bg-gray-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-gray-600"
                 >
-                  Simpan
+                  Batal
                 </button>
               </div>
             </div>
           </div>
         </form>
       </div>
+      <div
+      v-if="notification.show"
+      id="toast-success"
+      class="fixed bottom-4 right-4 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow"
+      role="alert"
+     >
+      <div
+        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg"
+      >
+        <svg
+          class="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 1 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414Z"
+          />
+        </svg>
+        <span class="sr-only">Check icon</span>
+      </div>
+      <div class="ml-3 text-sm font-normal">{{ notification.message }}</div>
+      <button
+        @click="notification.show = false"
+        type="button"
+        class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
+        aria-label="Close"
+      >
+        <span class="sr-only">Close</span>
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+      </button>
+    </div>
+
+      <!-- <div
+        v-if="notification.show"
+        class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg"
+      >
+        {{ notification.message }}
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import AppHeader from "~/components/AppHeader.vue";
 import SidebarAdmin from "~/components/SidebarAdmin.vue";
-import { useRouter } from "vue-router";
 
 definePageMeta({
   middleware: ["auth", "role"],
@@ -341,6 +394,7 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const route = useRoute();
     const form = reactive({
       nama: "",
       nik: "",
@@ -350,28 +404,14 @@ export default {
       jenis_kelamin: "",
       pendidikan: "",
       pekerjaan: "",
+      nama_ayah: "",
+      nama_ibu: "",
       status_perkawinan: "",
       hubungan_keluarga: "",
-      keluarga_id: router.currentRoute.value.query.keluarga_id,
-      kepala_keluarga_id: router.currentRoute.value.query.kepala_keluarga_id, // Pastikan ini di-set
+      keluarga_id: "",
     });
 
     const errors = reactive({});
-    // Function to validate NIK input (only allow numbers, check length)
-    const validateNik = (e) => {
-      const input = e.target.value.replace(/\D/g, ""); // Allow only digits
-
-      if (input.length < 16) {
-        errors.nik = ["NIK harus terdiri dari 16 digit"];
-      } else if (input.length > 16) {
-        errors.nik = ["NIK tidak boleh lebih dari 16 digit"];
-      } else {
-        errors.nik = null; // No error
-      }
-
-      // Update the form data with validated input
-      form.nik = input;
-    };
 
     const notification = reactive({
       show: false,
@@ -387,17 +427,15 @@ export default {
       "Khonghucu",
     ];
 
-    const jenisKelaminOptions = ["Laki-laki", "Perempuan"];
-
     const pendidikanOptions = [
       "TIDAK / BELUM SEKOLAH",
       "TAMAT SD / SEDERAJAT",
       "SLTA / SEDERAJAT",
-      "SLTP/SEDERAJAT",
-      "BELUM TAMAT SD/SEDERAJAT",
-      "DIPLOMA IV/ STRATA I",
+      "SLTP / SEDERAJAT",
+      "BELUM TAMAT SD / SEDERAJAT",
+      "DIPLOMA IV / STRATA I",
       "DIPLOMA I / II",
-      "AKADEMI/ DIPLOMA III/S. MUDA",
+      "AKADEMI / DIPLOMA III / S. MUDA",
       "STRATA II",
       "STRATA III",
     ];
@@ -445,6 +483,7 @@ export default {
     ];
 
     const hubunganKeluargaOptions = [
+      "Kepala Keluarga",
       "Istri",
       "Anak",
       "Orang Tua",
@@ -455,31 +494,49 @@ export default {
       "Lainnya",
     ];
 
-    const showNotification = (message) => {
-      notification.message = message;
-      notification.show = true;
-      setTimeout(() => {
-        notification.show = false;
-      }, 3000);
+    const originalNIK = ref("");
+
+    const validateNik = () => {
+      const input = form.nik.replace(/\D/g, ""); // Menghapus semua karakter non-numeric
+      if (input.length < 16) {
+        errors.nik = ["NIK harus terdiri dari 16 digit"];
+      } else {
+        errors.nik = null; // Tidak ada error jika panjang tepat 16 digit
+      }
+
+      // Update the form data with validated input
+      form.nik = input;
     };
-    const createAnggotaKeluarga = async () => {
 
-        if (form.nik.length !== 16) {
-    errors.nik = ["NIK harus terdiri dari 16 digit"];
-    showNotification("NIK harus terdiri dari 16 digit");
-    return; // Stop execution if NIK is invalid
-  }
-
+    const fetchAnggotaDetails = async () => {
+      const anggotaId = route.query.id;
       try {
-        // Reset previous errors
-        Object.keys(errors).forEach((key) => {
-          errors[key] = null;
+        const response = await fetch(
+          `http://laravel-api.test/api/anggota_keluargas/${anggotaId}`
+        );
+        const data = await response.json();
+
+        // Populate form with fetched data, including keluarga_id
+        Object.keys(form).forEach((key) => {
+          form[key] = data[key];
         });
 
+        // Assign keluarga_id from fetched data
+        originalNIK.value = data.nik;
+        form.keluarga_id = data.keluarga_id; // Pastikan keluarga_id diambil dari respons API
+      } catch (error) {
+        console.error("Failed to fetch anggota details:", error);
+      }
+    };
+
+    const updateAnggota = async () => {
+      const anggotaId = route.query.id;
+
+      try {
         const response = await fetch(
-          "http://laravel-api.test/api/anggota_keluargas",
+          `http://laravel-api.test/api/anggota_keluargas/${anggotaId}`,
           {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
@@ -491,46 +548,66 @@ export default {
         if (!response.ok) {
           const errorData = await response.json();
 
-          // Update errors with the response from the server
           Object.keys(errorData.errors).forEach((key) => {
             errors[key] = errorData.errors[key];
           });
-
-          return; // Stop further execution if there are errors
+          // Handle any other errors
+          notification.message =
+            errorData.message || "Gagal memperbarui anggota";
+         
+          return;
         }
 
-        const newAnggota = await response.json();
-        showNotification("Anggota Keluarga berhasil ditambahkan!");
-        cancelCreate(); // Navigate back or reset the form
+        notification.message = "Anggota berhasil diperbarui";
+        notification.show = true;
+        setTimeout(() => {
+          router.push({
+            path: "/admin/nagari/keluarga/keluargaDetail",
+            query: { id: form.keluarga_id },
+          });
+        }, 1500);
       } catch (error) {
-        console.error("Gagal menambahkan anggota keluarga:", error);
-        showNotification("Gagal menambahkan anggota keluarga");
+        console.error("Error updating anggota:", error);
+        notification.message = "Terjadi kesalahan saat memperbarui anggota";
+        notification.show = true;
       }
     };
-    const cancelCreate = () => {
+
+    const showNotification = (message) => {
+      notification.message = message;
+      notification.show = true;
+      setTimeout(() => {
+        notification.show = false;
+      }, 3000);
+    };
+
+    const cancelEdit = () => {
       router.push({
         path: "/admin/nagari/keluarga/keluargaDetail",
         query: { id: form.keluarga_id },
       });
     };
 
+    onMounted(fetchAnggotaDetails);
+
     return {
       form,
+      notification,
+      updateAnggota,
+      cancelEdit,
       errors,
-      createAnggotaKeluarga,
-      showNotification,
-      cancelCreate,
       agamaOptions,
-      jenisKelaminOptions,
+      showNotification,
       pendidikanOptions,
       pekerjaanOptions,
-      validateNik,
       statusPerkawinanOptions,
       hubunganKeluargaOptions,
+      validateNik,
     };
   },
 };
 </script>
+
 <style scoped>
 .custom-bg-main {
   background-color: #f9fafb;

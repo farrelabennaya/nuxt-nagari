@@ -101,7 +101,7 @@
         const rumah_id = urlParams.get("rumah_id");
   
         try {
-          const response = await fetch("https://www.demo-ta.my.id/api/keluargas", {
+          const response = await fetch("http://laravel-api.test/api/keluargas", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

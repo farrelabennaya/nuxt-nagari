@@ -7,7 +7,7 @@
         id="toast-success"
         class="fixed bottom-4 right-4 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
         role="alert"
-      >
+       >
         <div
           class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200"
         >
@@ -349,7 +349,7 @@ export default {
 
     const fetchAlamat = async () => {
       try {
-        const response = await fetch("https://www.demo-ta.my.id/api/alamats");
+        const response = await fetch("http://laravel-api.test/api/alamats");
         const data = await response.json();
 
         if (Array.isArray(data)) {
@@ -368,7 +368,7 @@ export default {
 
     const fetchJorong = async () => {
       try {
-        const response = await fetch("https://www.demo-ta.my.id/api/jorongs");
+        const response = await fetch("http://laravel-api.test/api/jorongs");
         const data = await response.json();
         if (Array.isArray(data)) {
           jorongList.value = data;
@@ -399,7 +399,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://www.demo-ta.my.id/api/alamats/${editForm.id}`,
+          `http://laravel-api.test/api/alamats/${editForm.id}`,
           {
             method: "PUT",
             headers: {
@@ -453,7 +453,7 @@ export default {
       isLoading.value = true;
       try {
         const response = await fetch(
-          `https://www.demo-ta.my.id/api/alamats/${editForm.id}`,
+          `http://laravel-api.test/api/alamats/${editForm.id}`,
           {
             method: "DELETE",
             headers: {

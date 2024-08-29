@@ -168,7 +168,7 @@ export default {
 
     const fetchRumah = async () => {
       try {
-        const response = await fetch("https://www.demo-ta.my.id/api/rumahs");
+        const response = await fetch("http://laravel-api.test/api/rumahs");
         const data = await response.json();
 
         if (Array.isArray(data)) {
@@ -189,30 +189,29 @@ export default {
     };
 
     const generateQrCode = async (rumahId) => {
-      try {
-        const response = await fetch(
-          `https://www.demo-ta.my.id/api/generate-qr-code/${rumahId}`
-        );
-        const data = await response.json();
+  try {
+    const response = await fetch(
+      `http://laravel-api.test/api/generate-qr-code/${rumahId}`
+    );
+    const data = await response.json();
 
-        if (data && data.qr_code_base64) {
-          const rumahIndex = rumahList.value.findIndex(
-            (rumah) => rumah.id === rumahId
-          );
-          if (rumahIndex !== -1) {
-            rumahList.value[
-              rumahIndex
-            ].qrCodeBase64 = `data:image/svg+xml;base64,${data.qr_code_base64}`;
-            showNotification("QR Code berhasil dihasilkan!");
-          }
-        } else {
-          showNotification("Gagal menghasilkan QR Code.");
-        }
-      } catch (error) {
-        console.error("Error generating QR code:", error);
-        showNotification("Gagal menghasilkan QR Code.");
+    if (data && data.qr_code_base64) {
+      const rumahIndex = rumahList.value.findIndex(
+        (rumah) => rumah.id === rumahId
+      );
+      if (rumahIndex !== -1) {
+        rumahList.value[rumahIndex].qrCodeBase64 = `data:image/svg+xml;base64,${data.qr_code_base64}`;
+        showNotification("QR Code berhasil dihasilkan!");
       }
-    };
+    } else {
+      showNotification("Gagal menghasilkan QR Code.");
+    }
+  } catch (error) {
+    console.error("Error generating QR code:", error);
+    showNotification("Gagal menghasilkan QR Code.");
+  }
+};
+
 
     const showNotification = (message) => {
       notification.message = message;

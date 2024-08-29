@@ -349,7 +349,7 @@ const checkNIKExists = async (nik) => {
   const token = auth.getToken;
 
   try {
-    const response = await fetch(`https://www.demo-ta.my.id/api/check-nik?nik=${nik}`, {
+    const response = await fetch(`http://laravel-api.test/api/check-nik?nik=${nik}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -378,7 +378,7 @@ const handleFormSubmit = async () => {
   errors.value = {};
 
   try {
-    const response = await fetch("https://www.demo-ta.my.id/api/anggota_keluargas", {
+    const response = await fetch("http://laravel-api.test/api/anggota_keluargas", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -396,7 +396,7 @@ const handleFormSubmit = async () => {
         throw new Error(data.message || "Gagal menambahkan Kepala Keluarga");
       }
     } else {
-      await fetch(`https://www.demo-ta.my.id/api/keluargas/${form.keluarga_id}`, {
+      await fetch(`http://laravel-api.test/api/keluargas/${form.keluarga_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

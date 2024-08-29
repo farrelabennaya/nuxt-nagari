@@ -5,15 +5,121 @@
       <SidebarAdmin />
       <div
         id="main-content"
-        class="h-full w-full bg-gray-50 relative overflow-y-auto sm:ml-64"
+        class="h-full w-full custom-bg-main relative overflow-y-auto sm:ml-64"
       >
+      <div class="custom-header to-gray-100 p-6 pb-32 pt-5">
         <main>
           <div class="pt-6 px-4 ml-5 mr-5">
             <h1 class="text-lg font-bold mb-4">Create Alamat</h1>
             <slot />
           </div>
         </main>
-        <div class="min-h-screen flex">
+         <!-- Stepper Start -->
+         <div class="mx-4 p-4 mb-5">
+            <div class="flex items-center">
+              <div class="flex items-center text-teal-600 relative">
+                <div
+                  class="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2"
+                  :class="currentStep === 1 ? 'bg-teal-600 text-white' : 'border-teal-600 text-teal-600'"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    height="100%"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-bookmark "
+                  >
+                    <path
+                      d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <div
+                  class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase"
+                  :class="currentStep === 1 ? 'text-teal-600' : 'text-gray-500'"
+                >
+                  Buat Keluarga
+                </div>
+              </div>
+              <div
+                class="flex-auto border-t-2 transition duration-500 ease-in-out"
+                :class="currentStep > 1 ? 'border-teal-600' : 'border-gray-300'"
+              ></div>
+              <div class="flex items-center relative">
+                <div
+                  class="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2"
+                  :class="currentStep === 2 ? 'bg-teal-600 text-white' : 'border-teal-600 text-teal-600'"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    height="100%"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-user-plus "
+                  >
+                    <path
+                      d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                    ></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <line x1="20" y1="8" x2="20" y2="14"></line>
+                    <line x1="23" y1="11" x2="17" y2="11"></line>
+                  </svg>
+                </div>
+                <div
+                  class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase"
+                  :class="currentStep === 2 ? 'text-teal-600' : 'text-gray-500'"
+                >
+                  Buat Kepala Keluarga
+                </div>
+              </div>
+              <div
+                class="flex-auto border-t-2 transition duration-500 ease-in-out"
+                :class="currentStep > 2 ? 'border-teal-600' : 'border-gray-300'"
+              ></div>
+              <div class="flex items-center relative">
+                <div
+                  class="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2"
+                  :class="currentStep === 3 ? 'bg-teal-600 text-white' : 'border-gray-300 text-gray-500'"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    height="100%"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-database "
+                  >
+                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                  </svg>
+                </div>
+                <div
+                  class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase"
+                  :class="currentStep === 3 ? 'text-teal-600' : 'text-gray-500'"
+                >
+                  Buat Alamat
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Stepper End -->
+        </div>
+        <div class="min-h-screen flex -mt-20">
           <div class="w-full">
             <div
               class="card bg-white p-10 rounded-lg shadow-md md:w-3/5 mx-auto lg:w-1/3"
@@ -157,6 +263,7 @@ definePageMeta({
   colorMode: "light",
 });
 
+const currentStep = ref(3); // Mengatur langkah ketiga sebagai default
 const form = reactive({
   keluarga_id: route.query.keluarga_id || "",
   jorong_id: "",
@@ -183,7 +290,7 @@ const showNotification = (message) => {
 
 const fetchJorong = async () => {
   try {
-    const response = await fetch("https://www.demo-ta.my.id/api/jorongs");
+    const response = await fetch("http://laravel-api.test/api/jorongs");
     const data = await response.json();
     jorongList.value = data;
   } catch (error) {
@@ -194,41 +301,48 @@ const fetchJorong = async () => {
 const handleSubmit = async () => {
   errors.value = {};
   const token = auth.getToken;
-
   try {
-    const response = await fetch("https://www.demo-ta.my.id/api/alamats", {
+    const response = await fetch("http://laravel-api.test/api/alamats", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(form),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      if (errorData.errors) {
-        errors.value = errorData.errors;
-      }
-      throw new Error("Error creating Alamat: " + errorData.message);
-    }
-
     const result = await response.json();
-    showNotification("Alamat and Rumah created successfully!");
-    setTimeout(() => {
+    if (response.ok) {
+      showNotification("Alamat created successfully!");
       router.push("/admin/nagari/keluarga");
-    }, 1500);
+    } else {
+      // handle errors
+      errors.value = result.errors || {};
+      throw new Error(result.message);
+    }
   } catch (error) {
-    console.error("Request failed:", error);
     showNotification(error.message);
   }
+};
+
+
+const previousStep = () => {
+  currentStep.value--;
+  router.push({
+    path: "/admin/nagari/anggotaKeluarga/createKepalaKeluarga",
+    query: { keluarga_id: form.keluarga_id, jumlah_kk: route.query.jumlah_kk }, // Kirim data yang diperlukan
+  });
 };
 
 onMounted(fetchJorong);
 </script>
 
 <style scoped>
-/* Tambahkan gaya CSS khusus di sini */
-</style>
+.custom-bg-main {
+  background-color: #f9fafb;
+}
 
+.custom-header {
+  background-color: #adc4ce;
+}
+</style>

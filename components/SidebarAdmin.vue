@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
+import { useFlowbite } from '~/composables/useFlowbite';
+
+// initialize components based on data attribute selectors
+onMounted(() => {
+    useFlowbite(() => {
+        initFlowbite();
+    })
+})
 
 const userDropdownOpen = ref(false);
 const nagariDropdownOpen = ref(false);
@@ -331,6 +339,17 @@ watch(route, () => {
                 >Data Penduduk</NuxtLink
               >
             </li>
+            <li>
+              <NuxtLink
+                to="/admin/maps/penduduklist"
+                class="flex items-center w-full p-2 text-gray-900 font-normal transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                :class="{
+                  'bg-gray-200': activeMenu === '/admin/maps/penduduklist',
+                }"
+                @click="sidebarOpen = false"
+                >Lokasi Penduduk</NuxtLink
+              >
+            </li>
             
           </ul>
         </li>
@@ -382,6 +401,31 @@ watch(route, () => {
               ></path>
             </svg>
             <span class="ml-3 flex-1 whitespace-nowrap">Scanner</span>
+          </NuxtLink>
+        </li>
+
+        <li>
+          <NuxtLink
+            to="/maps"
+            class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group"
+            :class="{
+              'bg-gray-200': activeMenu === '/admin/maps',
+            }"
+            @click="sidebarOpen = false"
+          >
+            <svg
+              class="w-6 h-6 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="ml-3 flex-1 whitespace-nowrap">Map</span>
           </NuxtLink>
         </li>
 

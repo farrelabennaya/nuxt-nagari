@@ -38,7 +38,7 @@ const handleSubmit = async () => {
   console.log('Token used for request:', token); // Check the console to see if the token is logged correctly
 
   try {
-    const response = await fetch('https://www.demo-ta.my.id/api/jorongs', {
+    const response = await fetch('http://laravel-api.test/api/jorongs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -68,6 +68,7 @@ const handleSubmit = async () => {
 };
 </script>
 
+
 <template>
   <div>
     <AppHeader />
@@ -77,17 +78,22 @@ const handleSubmit = async () => {
         id="main-content"
         class="h-full w-full bg-gray-50 relative overflow-y-auto sm:ml-64"
       >
+      <div class="custom-header to-gray-100 p-6 pb-32 pt-5">
         <main>
-          <div class="pt-6 px-4 ml-5 mr-5">
-            <h1 class="text-lg font-bold mb-4">Create Jorong</h1>
-
-            <slot />
-          </div>
+          <div
+              class="bg-white rounded-lg shadow-sm p-6 flex justify-between items-center relative overflow-x-auto ml-5 mr-5 mt-5 mb-5"
+             >
+              <div>
+                <h2 class="text-xl font-bold text-gray-800">Tambah Jorong</h2>
+                <p class="text-gray-500">Tambah Data Jorong</p>
+              </div>
+            </div>
         </main>
+        </div>
         <div class="min-h-screen flex">
           <div class="w-full">
             <div
-              class="card bg-white p-10 rounded-lg shadow-md md:w-3/5 mx-auto lg:w-1/3"
+              class="card bg-white p-10 rounded-lg shadow-md md:w-3/5 mx-auto lg:w-1/3 -mt-20"
             >
               <h3 class="text-center text-2xl font-semibold">Jorong Data</h3>
 
@@ -177,6 +183,14 @@ const handleSubmit = async () => {
   </div>
 </template>
 
+
 <style scoped>
-/* Tambahkan gaya CSS khusus di sini */
+.custom-bg-main {
+  background-color: #f9fafb;
+}
+
+.custom-header {
+  background: linear-gradient(to right, #adc4ce, #e0ebf0);
+}
 </style>
+

@@ -10,7 +10,7 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async login(formData) {
       try {
-        const { data } = await $fetch("https://www.demo-ta.my.id/api/login", {
+        const { data } = await $fetch("http://laravel-api.test/api/login", {
           method: "POST",
           body: { ...formData },
         });
@@ -23,7 +23,7 @@ export const useAuthStore = defineStore("auth", {
 
     async register(formData) {
       try {
-        const { data } = await $fetch("https://www.demo-ta.my.id/api/register", {
+        const { data } = await $fetch("http://laravel-api.test/api/register", {
           method: "POST",
           body: { ...formData },
         });
@@ -37,7 +37,7 @@ export const useAuthStore = defineStore("auth", {
      async createuser(formData) {
       const tokenStore = useTokenStore();
       try {
-        const { data } = await $fetch("https://www.demo-ta.my.id/api/users", {
+        const { data } = await $fetch("http://laravel-api.test/api/users", {
           method: "POST",
           body: { ...formData },
           headers: {
@@ -55,7 +55,7 @@ export const useAuthStore = defineStore("auth", {
     async createPetugas(formData) {
       const tokenStore = useTokenStore();
       try {
-        const { data } = await $fetch("https://www.demo-ta.my.id/api/users/petugas", {
+        const { data } = await $fetch("http://laravel-api.test/api/users/petugas", {
           method: "POST",
           body: { ...formData },
           headers: {
@@ -74,7 +74,7 @@ export const useAuthStore = defineStore("auth", {
     async logout() {
       const tokenStore = useTokenStore();
       try {
-        const res = await $fetch("https://www.demo-ta.my.id/api/logout", {
+        const res = await $fetch("http://laravel-api.test/api/logout", {
           method: "POST",
           //body: { ...formData },
           headers: {

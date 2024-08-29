@@ -18,13 +18,13 @@
   const wargas = ref([]);
   
   onMounted(async () => {
-    const response = await fetch('https://www.demo-ta.my.id/api/warga');
+    const response = await fetch('http://laravel-api.test/api/warga');
     const data = await response.json();
     wargas.value = data;
   });
   
   const qrCodeUrl = (path) => {
-    return `https://www.demo-ta.my.id/storage/${path}`;
+    return `http://laravel-api.test/storage/${path}`;
   };
   </script>
   
@@ -83,7 +83,7 @@
   
       const fetchRumah = async () => {
         try {
-          const response = await fetch("https://www.demo-ta.my.id/api/rumahs");
+          const response = await fetch("http://laravel-api.test/api/rumahs");
           const data = await response.json();
   
           if (Array.isArray(data)) {
@@ -91,7 +91,7 @@
             rumahList.value = data.map((rumah) => ({
               ...rumah,
               number: ++counter.value,
-              qr_code_url: `https://www.demo-ta.my.id/storage/qrcodes/${rumah.qr_code_path}`,
+              qr_code_url: `http://laravel-api.test/storage/qrcodes/${rumah.qr_code_path}`,
             }));
           } else {
             console.error("Invalid data format", data);

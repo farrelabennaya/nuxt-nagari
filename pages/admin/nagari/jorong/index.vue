@@ -54,8 +54,9 @@
           id="main-content"
           class="h-full w-full bg-gray-50 relative overflow-y-auto sm:ml-64"
         >
+        <div class="custom-header to-gray-100 p-6 pb-32 pt-5">
           <main>
-            <div class="pt-6 px-4 ml-5 mr-5">
+            <!-- <div class="pt-6 px-4 ml-5 mr-5">
               <h1 class="text-lg font-bold mb-4">Data Jorong</h1>
               <tr>
                 <td>
@@ -70,10 +71,26 @@
                 </td>
               </tr>
               <slot />
+            </div> -->
+            <div
+              class="bg-white rounded-lg shadow-sm p-6 flex justify-between items-center relative overflow-x-auto ml-5 mr-5 mt-5 mb-5"
+            >
+              <div>
+                <h2 class="text-xl font-bold text-gray-800">Jorong</h2>
+                <p class="text-gray-500">Kelola Jorong</p>
+              </div>
+              <NuxtLink to="/admin/nagari/jorong/create">
+                <button
+                  class="bg-green-500 text-white font-medium rounded-lg px-4 py-2 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300"
+                >
+                  + Tambah Jorong
+                </button>
+              </NuxtLink>
             </div>
           </main>
+        </div>
   
-          <div class="relative overflow-x-auto ml-5 mr-5">
+          <div class="relative overflow-x-auto ml-5 mr-5 -mt-20 p-6 pb-32 pt-5">
             <table
               class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400"
             >
@@ -150,6 +167,7 @@
               </tbody>
             </table>
           </div>
+         
   
           <!-- Edit Modal -->
           <div
@@ -322,7 +340,7 @@
   
       const fetchJorong = async () => {
         try {
-          const response = await fetch("https://www.demo-ta.my.id/api/jorongs");
+          const response = await fetch("http://laravel-api.test/api/jorongs");
           const data = await response.json();
   
           if (Array.isArray(data)) {
@@ -354,7 +372,7 @@
         isLoading.value = true;
         try {
           const response = await fetch(
-            `https://www.demo-ta.my.id/api/jorongs/${editForm.id}`,
+            `http://laravel-api.test/api/jorongs/${editForm.id}`,
             {
               method: "PUT",
               headers: {
@@ -407,7 +425,7 @@
         isLoading.value = true;
         try {
           const response = await fetch(
-            `https://www.demo-ta.my.id/api/jorongs/${editForm.id}`,
+            `http://laravel-api.test/api/jorongs/${editForm.id}`,
             {
               method: "DELETE",
               headers: {
@@ -458,6 +476,12 @@
   </script>
   
   <style scoped>
-  /* Tambahkan gaya khusus jika diperlukan */
+  .custom-bg-main {
+    background-color: #f9fafb;
+  }
+  
+  .custom-header {
+    background-color: #adc4ce;
+  }
   </style>
   

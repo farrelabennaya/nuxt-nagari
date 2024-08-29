@@ -69,7 +69,7 @@
   
       const fetchRumahDetail = async () => {
         try {
-          const response = await fetch(`https://www.demo-ta.my.id/api/rumahs/${rumahId.value}`);
+          const response = await fetch(`http://laravel-api.test/api/rumahs/${rumahId.value}`);
           const data = await response.json();
           rumah.value = data;
         } catch (error) {
