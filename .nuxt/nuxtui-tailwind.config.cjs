@@ -1,6 +1,6 @@
 
       const { defaultExtractor: createDefaultExtractor } = require('tailwindcss/lib/lib/defaultExtractor.js')
-      const { customSafelistExtractor, generateSafelist } = require("D:/laragon/www/TA Beta/fe-nagari/node_modules/@nuxt/ui/dist/runtime/utils/colors")
+      const { customSafelistExtractor, generateSafelist } = require("D:/laragon/www/TA Beta/fe-nagari-on3/node_modules/@nuxt/ui/dist/runtime/utils/colors")
 
       const defaultExtractor = createDefaultExtractor({ tailwindConfig: { separator: ':' } })
 
@@ -14,8 +14,8 @@
         ],
         content: {
           files: [
-            "D:/laragon/www/TA Beta/fe-nagari/node_modules/@nuxt/ui/dist/runtime/components/**/*.{vue,mjs,ts}",
-            "D:/laragon/www/TA Beta/fe-nagari/node_modules/@nuxt/ui/dist/runtime/ui.config/**/*.{mjs,js,ts}"
+            "D:/laragon/www/TA Beta/fe-nagari-on3/node_modules/@nuxt/ui/dist/runtime/components/**/*.{vue,mjs,ts}",
+            "D:/laragon/www/TA Beta/fe-nagari-on3/node_modules/@nuxt/ui/dist/runtime/ui.config/**/*.{mjs,js,ts}"
           ],
           transform: {
             vue: (content) => {

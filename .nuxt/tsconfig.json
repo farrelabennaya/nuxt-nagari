@@ -80,9 +80,6 @@
       "public": [
         "../public"
       ],
-      "public/*": [
-        "../public/*"
-      ],
       "#app": [
         "../node_modules/nuxt/dist/app"
       ],
@@ -99,7 +96,7 @@
         "../node_modules/@nuxt/ui/dist/runtime/*"
       ],
       "#ui-colors": [
-        "./ui.colors"
+        "./ui.colors.mjs"
       ],
       "#color-mode-options": [
         "./color-mode-options.mjs"
@@ -116,11 +113,8 @@
       "#tailwind-config": [
         "./tailwind.config"
       ],
-      "#tailwind-config/*": [
-        "./tailwind.config/*"
-      ],
       "#app-manifest": [
-        "./manifest/meta/dev"
+        "./manifest/meta/d0b4275d-d069-4477-8605-d26823b0ee60.json"
       ],
       "#build": [
         "."
